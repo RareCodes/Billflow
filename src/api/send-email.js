@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
@@ -7,7 +7,13 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
   const RESEND_API_KEY = process.env.RESEND_API_KEY
-  if (!RESEND_API_KEY) return res.status(500).json({ error: 'Resend API key not configured' })
+
+  console.log('API Key exists:', !!RESEND_API_KEY)
+  console.log('API Key prefix:', RESEND_API_KEY?.substring(0, 8))
+
+  if (!RESEND_API_KEY) {
+    return res.status(500).json({ error: 'Resend API key not configured' })
+  }
 
   try {
     const response = await fetch('https://api.resend.com/emails', {
@@ -18,10 +24,17 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify(req.body),
     })
+
     const data = await response.json()
-    if (!response.ok) return res.status(response.status).json({ error: data.message || 'Failed to send' })
+    console.log('Resend response:', data)
+
+    if (!response.ok) {
+      return res.status(response.status).json({ error: data.message || 'Failed to send' })
+    }
+
     return res.status(200).json(data)
   } catch (error) {
+    console.log('Catch error:', error.message)
     return res.status(500).json({ error: error.message })
   }
 }
