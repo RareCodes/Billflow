@@ -101,24 +101,22 @@ export default function InvoiceDetail() {
   }
 
   const handleSendEmail = async () => {
-    if (!invoice.client_snapshot?.email) {
-      alert('This client has no email address. Add one to the invoice to send via email.')
-      return
-    }
-    setSending(true)
-    try {
-      const { pdf } = await generatePDFBase64()
-      const pdfBase64 = pdf.output('datauristring').split(',')[1]
-      await sendInvoiceEmail({ invoice, profile, pdfBase64 })
-      alert(`Invoice sent to ${invoice.client_snapshot.email} ✓`)
-      if (invoice.status === 'draft') {
-        await updateStatus('sent')
-      }
-    } catch (err) {
-      alert('Failed to send: ' + err.message)
-    }
-    setSending(false)
+  if (!invoice.client_snapshot?.email) {
+    alert('This client has no email address.')
+    return
   }
+  setSending(true)
+  try {
+    await sendInvoiceEmail({ invoice, profile })
+    alert(`Invoice sent to ${invoice.client_snapshot.email} ✓`)
+    if (invoice.status === 'draft') {
+      await updateStatus('sent')
+    }
+  } catch (err) {
+    alert('Failed to send: ' + err.message)
+  }
+  setSending(false)
+}
 
   const fmt = (n) => Number(n).toLocaleString('en-NG', { minimumFractionDigits: 2 })
   const currencySymbol = { NGN: '₦', USD: '$', GBP: '£', EUR: '€', CAD: 'CA$' }[invoice?.currency] || ''
