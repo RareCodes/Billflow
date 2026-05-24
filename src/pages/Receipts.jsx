@@ -38,24 +38,24 @@ export default function Receipts() {
     const el = document.createElement('div')
     el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:794px;background:white;padding:48px;font-family:DM Sans,sans-serif;'
     el.innerHTML = `
-      <div style="border-bottom:2px solid #1B4FFF;padding-bottom:24px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:flex-start;">
+      <div style="border-bottom:2px solid #6D28D9;padding-bottom:24px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:flex-start;">
         <div>
-          <div style="width:48px;height:48px;background:#EEF2FF;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
-            <span style="color:#1B4FFF;font-weight:700;font-size:20px;">${profile?.business_name?.[0] || 'B'}</span>
+          <div style="width:48px;height:48px;background:#EDE9FE;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+            <span style="color:#6D28D9;font-weight:700;font-size:20px;">${profile?.business_name?.[0] || 'B'}</span>
           </div>
-          <p style="font-weight:700;font-size:15px;color:#0F1117;">${profile?.business_name || 'Business'}</p>
+          <p style="font-weight:700;font-size:15px;color:##EDE9FE;">${profile?.business_name || 'Business'}</p>
           <p style="font-size:12px;color:#5C6070;margin-top:2px;">${profile?.business_email || ''}</p>
         </div>
         <div style="text-align:right;">
           <p style="font-size:28px;font-weight:700;color:#16A34A;letter-spacing:-0.5px;">RECEIPT</p>
-          <p style="font-size:13px;font-weight:600;color:#0F1117;margin-top:4px;font-family:DM Mono,monospace;">${receipt.receipt_number}</p>
+          <p style="font-size:13px;font-weight:600;color:##EDE9FE;margin-top:4px;font-family:DM Mono,monospace;">${receipt.receipt_number}</p>
           <p style="font-size:11px;color:#5C6070;margin-top:8px;">Invoice: ${inv?.invoice_number}</p>
           <p style="font-size:11px;color:#5C6070;">Paid: ${new Date(receipt.paid_at).toLocaleDateString('en-NG')}</p>
         </div>
       </div>
       <div style="margin-bottom:24px;">
         <p style="font-size:10px;font-weight:700;color:#9EA3B0;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Received From</p>
-        <p style="font-weight:700;font-size:15px;color:#0F1117;">${inv?.client_snapshot?.name || '—'}</p>
+        <p style="font-weight:700;font-size:15px;color:##EDE9FE;">${inv?.client_snapshot?.name || '—'}</p>
         <p style="font-size:12px;color:#5C6070;">${inv?.client_snapshot?.email || ''}</p>
       </div>
       <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
@@ -69,9 +69,9 @@ export default function Receipts() {
         <tbody>
           ${(inv?.items || []).map(item => `
             <tr style="border-bottom:1px solid #F5F6FA;">
-              <td style="padding:10px 12px;font-size:13px;color:#0F1117;">${item.description}</td>
+              <td style="padding:10px 12px;font-size:13px;color:##EDE9FE;">${item.description}</td>
               <td style="padding:10px 12px;font-size:13px;color:#5C6070;text-align:center;">${item.quantity}</td>
-              <td style="padding:10px 12px;font-size:13px;font-weight:600;color:#0F1117;text-align:right;font-family:DM Mono,monospace;">${currencySymbol}${fmt(item.total)}</td>
+              <td style="padding:10px 12px;font-size:13px;font-weight:600;color:##EDE9FE;text-align:right;font-family:DM Mono,monospace;">${currencySymbol}${fmt(item.total)}</td>
             </tr>
           `).join('')}
         </tbody>
@@ -86,7 +86,7 @@ export default function Receipts() {
             <span style="font-size:13px;color:#5C6070;">Tax</span>
             <span style="font-size:13px;font-family:DM Mono,monospace;">${currencySymbol}${fmt(inv?.tax_amount || 0)}</span>
           </div>` : ''}
-          <div style="border-top:2px solid #0F1117;padding-top:10px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="border-top:2px solid ##EDE9FE;padding-top:10px;display:flex;justify-content:space-between;align-items:center;">
             <span style="font-weight:700;font-size:15px;">Total Paid</span>
             <span style="font-weight:700;font-size:22px;color:#16A34A;font-family:DM Mono,monospace;">${currencySymbol}${fmt(inv?.total || 0)}</span>
           </div>
@@ -123,7 +123,7 @@ export default function Receipts() {
         </div>
       </div>
 
-      <div className="bg-white border border-[#E4E7EE] rounded-xl overflow-hidden">
+      <div className="bg-white border border-[##EDE9FE] rounded-xl overflow-hidden">
         {loading ? (
           <div className="py-16 text-center text-sm text-ink-secondary">Loading receipts...</div>
         ) : receipts.length === 0 ? (

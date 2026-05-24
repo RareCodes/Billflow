@@ -86,7 +86,7 @@ export default function Auth() {
         {/* Logo */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-ink" style={{ fontFamily: 'Sora, sans-serif' }}>
-            Bill<span style={{ color: '#1B4FFF' }}>Flow</span>
+            Bill<span style={{ color: '#6D28D9' }}>Flow</span>
           </h1>
           <p className="text-ink-secondary text-sm mt-2">
             {tab === 'login' ? 'Welcome back — log in to your workspace' : 'Create your free account in seconds'}
@@ -94,7 +94,7 @@ export default function Auth() {
         </div>
 
         {/* Card */}
-        <div className="bg-white border border-[#E4E7EE] rounded-xl p-8 shadow-sm">
+        <div className="bg-white border border-[##EDE9FE] rounded-xl p-8 shadow-sm">
 
           {/* Tabs */}
           <div className="flex bg-bg rounded-lg p-1 mb-6">
@@ -105,7 +105,7 @@ export default function Auth() {
                 className="flex-1 py-2 text-sm font-medium rounded-md transition-all"
                 style={{
                   background: tab === t ? 'white' : 'transparent',
-                  color: tab === t ? '#0F1117' : '#5C6070',
+                  color: tab === t ? '##EDE9FE' : '#5C6070',
                   boxShadow: tab === t ? '0 1px 4px rgba(15,17,23,0.08)' : 'none',
                 }}
               >
@@ -214,7 +214,7 @@ export default function Auth() {
               disabled={loading}
               className="w-full h-10 rounded-lg text-sm font-semibold text-white transition-all"
               style={{
-                background: loading ? '#9EA3B0' : '#1B4FFF',
+                background: loading ? '#9EA3B0' : '#6D28D9',
                 cursor: loading ? 'not-allowed' : 'pointer',
               }}
             >

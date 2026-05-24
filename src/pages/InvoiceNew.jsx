@@ -23,8 +23,8 @@ function Field({ children }) {
   return <div className="mb-4">{children}</div>
 }
 
-const inputCls = "w-full h-9 px-3 text-sm border border-[#E4E7EE] rounded-lg outline-none focus:border-[#1B4FFF] focus:ring-2 focus:ring-[#1B4FFF15] transition-all bg-white"
-const selectCls = "w-full h-9 px-3 text-sm border border-[#E4E7EE] rounded-lg outline-none focus:border-[#1B4FFF] transition-all bg-white appearance-none"
+const inputCls = "w-full h-9 px-3 text-sm border border-[##EDE9FE] rounded-lg outline-none focus:border-[#6D28D9] focus:ring-2 focus:ring-[#6D28D915] transition-all bg-white"
+const selectCls = "w-full h-9 px-3 text-sm border border-[##EDE9FE] rounded-lg outline-none focus:border-[#6D28D9] transition-all bg-white appearance-none"
 
 export default function InvoiceNew() {
   const navigate = useNavigate()
@@ -190,7 +190,7 @@ export default function InvoiceNew() {
             <button
               onClick={() => handleSave('draft')}
               disabled={saving}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border border-[#E4E7EE] bg-white text-ink hover:bg-bg transition-all"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border border-[##EDE9FE] bg-white text-ink hover:bg-bg transition-all"
             >
               <Save size={14} />
               Save as Draft
@@ -199,7 +199,7 @@ export default function InvoiceNew() {
               onClick={() => handleSave('sent')}
               disabled={saving}
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
-              style={{ background: '#1B4FFF' }}
+              style={{ background: '#6D28D9' }}
             >
               <Send size={14} />
               {saving ? 'Saving...' : 'Save and Send'}
@@ -210,14 +210,14 @@ export default function InvoiceNew() {
 
       {/* Invoice Document */}
       <div className="max-w-6xl mx-auto px-6 py-8">
-        <div className="bg-white border border-[#E4E7EE] rounded-xl overflow-hidden shadow-sm">
+        <div className="bg-white border border-[##EDE9FE] rounded-xl overflow-hidden shadow-sm">
 
           {/* Invoice Header — Business + Invoice Meta */}
           <div className="grid grid-cols-2 gap-8 px-8 pt-8 pb-6 border-b border-[#E4E7EE]">
             {/* Left — Business Info */}
             <div>
               <div className="w-16 h-16 rounded-xl bg-primary-light flex items-center justify-center mb-3">
-                <span className="text-xl font-bold" style={{ color: '#1B4FFF', fontFamily: 'Sora, sans-serif' }}>
+                <span className="text-xl font-bold" style={{ color: '#6D28D9', fontFamily: 'Sora, sans-serif' }}>
                   {profile?.business_name?.[0] || 'B'}
                 </span>
               </div>
@@ -233,7 +233,7 @@ export default function InvoiceNew() {
               {!profile?.business_name && (
                 <button
                   onClick={() => navigate('/settings')}
-                  className="text-xs text-[#1B4FFF] mt-1 hover:underline"
+                  className="text-xs text-[#6D28D9] mt-1 hover:underline"
                 >
                   + Add business details
                 </button>
@@ -355,7 +355,7 @@ export default function InvoiceNew() {
         onChange={(e) => setForm({ ...form, clientAddress: e.target.value })}
         placeholder="Billing address"
         rows={2}
-        className="w-full px-3 py-2 text-sm border border-[#E4E7EE] rounded-lg outline-none focus:border-[#1B4FFF] transition-all resize-none"
+        className="w-full px-3 py-2 text-sm border border-[##EDE9FE] rounded-lg outline-none focus:border-[#6D28D9] transition-all resize-none"
       />
     </Field>
   </div>
@@ -377,7 +377,7 @@ export default function InvoiceNew() {
     </div>
 
     {/* Live Invoice Summary */}
-    <div className="bg-bg rounded-xl p-4 border border-[#E4E7EE]">
+    <div className="bg-bg rounded-xl p-4 border border-[##EDE9FE]">
       <p className="text-[10px] font-bold text-ink-muted uppercase tracking-wider mb-3">
         Invoice Summary
       </p>
@@ -415,7 +415,7 @@ export default function InvoiceNew() {
           <span className="text-xs font-semibold text-ink">Total Amount</span>
           <span
             className="text-lg font-bold"
-            style={{ fontFamily: 'DM Mono, monospace', color: '#1B4FFF' }}
+            style={{ fontFamily: 'DM Mono, monospace', color: '#6D28D9' }}
           >
             {currencySymbol}{fmt(total)}
           </span>
@@ -458,7 +458,7 @@ export default function InvoiceNew() {
                         value={item.description}
                         onChange={(e) => updateItem(index, 'description', e.target.value)}
                         placeholder="Description of service or product"
-                        className="w-full h-9 px-3 text-sm border border-transparent rounded-lg outline-none focus:border-[#1B4FFF] hover:border-[#E4E7EE] transition-all"
+                        className="w-full h-9 px-3 text-sm border border-transparent rounded-lg outline-none focus:border-[#6D28D9] hover:border-[#E4E7EE] transition-all"
                       />
                     </td>
                     <td className="py-2 px-2">
@@ -467,7 +467,7 @@ export default function InvoiceNew() {
                         min="1"
                         value={item.quantity}
                         onChange={(e) => updateItem(index, 'quantity', e.target.value)}
-                        className="w-full h-9 px-2 text-sm text-center border border-transparent rounded-lg outline-none focus:border-[#1B4FFF] hover:border-[#E4E7EE] transition-all"
+                        className="w-full h-9 px-2 text-sm text-center border border-transparent rounded-lg outline-none focus:border-[#6D28D9] hover:border-[#E4E7EE] transition-all"
                       />
                     </td>
                     <td className="py-2 px-2">
@@ -476,7 +476,7 @@ export default function InvoiceNew() {
                         min="0"
                         value={item.unit_price}
                         onChange={(e) => updateItem(index, 'unit_price', e.target.value)}
-                        className="w-full h-9 px-3 text-sm text-right border border-transparent rounded-lg outline-none focus:border-[#1B4FFF] hover:border-[#E4E7EE] transition-all"
+                        className="w-full h-9 px-3 text-sm text-right border border-transparent rounded-lg outline-none focus:border-[#6D28D9] hover:border-[#E4E7EE] transition-all"
                       />
                     </td>
                     <td className="py-2 pl-2 text-right">
@@ -499,7 +499,7 @@ export default function InvoiceNew() {
 
             <button
               onClick={addItem}
-              className="mt-3 flex items-center gap-1.5 text-sm font-medium text-[#1B4FFF] hover:opacity-80 transition-all"
+              className="mt-3 flex items-center gap-1.5 text-sm font-medium text-[#6D28D9] hover:opacity-80 transition-all"
             >
               <Plus size={14} />
               Add Line Item
@@ -526,7 +526,7 @@ export default function InvoiceNew() {
                       onChange={(e) => setForm({ ...form, notes: e.target.value })}
                       placeholder="Thank you for your business. We appreciate the opportunity to serve you."
                       rows={3}
-                      className="w-full px-3 py-2 text-sm border border-[#E4E7EE] rounded-lg outline-none focus:border-[#1B4FFF] transition-all resize-none"
+                      className="w-full px-3 py-2 text-sm border border-[##EDE9FE] rounded-lg outline-none focus:border-[#6D28D9] transition-all resize-none"
                     />
                   </div>
                   <div>
@@ -536,7 +536,7 @@ export default function InvoiceNew() {
                       onChange={(e) => setForm({ ...form, terms: e.target.value })}
                       placeholder="Payment is due within the agreed terms. Late payments may incur additional charges."
                       rows={3}
-                      className="w-full px-3 py-2 text-sm border border-[#E4E7EE] rounded-lg outline-none focus:border-[#1B4FFF] transition-all resize-none"
+                      className="w-full px-3 py-2 text-sm border border-[##EDE9FE] rounded-lg outline-none focus:border-[#6D28D9] transition-all resize-none"
                     />
                   </div>
                 </div>
@@ -563,7 +563,7 @@ export default function InvoiceNew() {
                       max="100"
                       value={form.taxRate}
                       onChange={(e) => setForm({ ...form, taxRate: e.target.value })}
-                      className="w-16 h-7 px-2 text-xs text-center border border-[#E4E7EE] rounded outline-none focus:border-[#1B4FFF]"
+                      className="w-16 h-7 px-2 text-xs text-center border border-[##EDE9FE] rounded outline-none focus:border-[#6D28D9]"
                     />
                   </div>
                   <span className="font-medium text-ink" style={{ fontFamily: 'DM Mono, monospace' }}>
@@ -580,7 +580,7 @@ export default function InvoiceNew() {
                       min="0"
                       value={form.discount}
                       onChange={(e) => setForm({ ...form, discount: e.target.value })}
-                      className="w-24 h-7 px-2 text-xs border border-[#E4E7EE] rounded outline-none focus:border-[#1B4FFF]"
+                      className="w-24 h-7 px-2 text-xs border border-[##EDE9FE] rounded outline-none focus:border-[#6D28D9]"
                     />
                   </div>
                   <span className="font-medium text-red-500" style={{ fontFamily: 'DM Mono, monospace' }}>
@@ -588,9 +588,9 @@ export default function InvoiceNew() {
                   </span>
                 </div>
 
-                <div className="border-t-2 border-[#0F1117] pt-3 flex justify-between items-center">
+                <div className="border-t-2 border-[##EDE9FE] pt-3 flex justify-between items-center">
                   <span className="font-bold text-ink">Total</span>
-                  <span className="font-bold text-2xl" style={{ fontFamily: 'DM Mono, monospace', color: '#1B4FFF' }}>
+                  <span className="font-bold text-2xl" style={{ fontFamily: 'DM Mono, monospace', color: '#6D28D9' }}>
                     {currencySymbol}{fmt(total)}
                   </span>
                 </div>
@@ -609,7 +609,7 @@ export default function InvoiceNew() {
             <button
               onClick={() => handleSave('draft')}
               disabled={saving}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border border-[#E4E7EE] bg-white text-ink hover:bg-white transition-all"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border border-[##EDE9FE] bg-white text-ink hover:bg-white transition-all"
             >
               <Save size={14} />
               Save as Draft
@@ -618,7 +618,7 @@ export default function InvoiceNew() {
               onClick={() => handleSave('sent')}
               disabled={saving}
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
-              style={{ background: '#1B4FFF' }}
+              style={{ background: '#6D28D9' }}
             >
               <Send size={14} />
               {saving ? 'Saving...' : 'Save and Send'}

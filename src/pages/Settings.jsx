@@ -5,7 +5,7 @@ import AppLayout from '../components/layout/AppLayout'
 import { supabase } from '../lib/supabase'
 
 const CURRENCIES = ['NGN', 'USD', 'GBP', 'EUR', 'CAD']
-const inputCls = "w-full h-9 px-3 text-sm border border-[#E4E7EE] rounded-lg outline-none focus:border-[#1B4FFF] focus:ring-2 focus:ring-[#1B4FFF15] transition-all"
+const inputCls = "w-full h-9 px-3 text-sm border border-[##EDE9FE] rounded-lg outline-none focus:border-[#6D28D9] focus:ring-2 focus:ring-[#6D28D915] transition-all"
 
 export default function Settings() {
   const [form, setForm] = useState({
@@ -68,7 +68,7 @@ export default function Settings() {
           onClick={saveProfile}
           disabled={saving}
           className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
-          style={{ background: saved ? '#16A34A' : '#1B4FFF' }}
+          style={{ background: saved ? '#16A34A' : '#6D28D9' }}
         >
           <Save size={14} />
           {saving ? 'Saving...' : saved ? 'Saved ✓' : 'Save Changes'}
@@ -77,10 +77,10 @@ export default function Settings() {
 
       <div className="max-w-2xl space-y-6">
         {/* Business Profile */}
-        <div className="bg-white border border-[#E4E7EE] rounded-xl p-6">
+        <div className="bg-white border border-[##EDE9FE] rounded-xl p-6">
           <div className="flex items-center gap-3 mb-5">
             <div className="w-9 h-9 rounded-lg bg-primary-light flex items-center justify-center">
-              <Building2 size={17} style={{ color: '#1B4FFF' }} />
+              <Building2 size={17} style={{ color: '#6D28D9' }} />
             </div>
             <div>
               <h2 className="font-semibold text-ink text-sm">Business Profile</h2>
@@ -91,7 +91,7 @@ export default function Settings() {
           {/* Avatar preview */}
           <div className="flex items-center gap-4 mb-5 pb-5 border-b border-[#E4E7EE]">
             <div className="w-16 h-16 rounded-xl bg-primary-light flex items-center justify-center">
-              <span className="text-2xl font-bold" style={{ color: '#1B4FFF', fontFamily: 'Sora, sans-serif' }}>
+              <span className="text-2xl font-bold" style={{ color: '#6D28D9', fontFamily: 'Sora, sans-serif' }}>
                 {form.business_name?.[0]?.toUpperCase() || '?'}
               </span>
             </div>
@@ -122,13 +122,13 @@ export default function Settings() {
             </div>
             <div className="col-span-2">
               <label className="block text-[11px] font-bold text-ink-secondary uppercase tracking-wider mb-1">Business Address</label>
-              <textarea value={form.business_address} onChange={e => setForm({ ...form, business_address: e.target.value })} placeholder="123 Main Street, Lagos, Nigeria" rows={2} className="w-full px-3 py-2 text-sm border border-[#E4E7EE] rounded-lg outline-none focus:border-[#1B4FFF] transition-all resize-none" />
+              <textarea value={form.business_address} onChange={e => setForm({ ...form, business_address: e.target.value })} placeholder="123 Main Street, Lagos, Nigeria" rows={2} className="w-full px-3 py-2 text-sm border border-[##EDE9FE] rounded-lg outline-none focus:border-[#6D28D9] transition-all resize-none" />
             </div>
           </div>
         </div>
 
         {/* Invoice Defaults */}
-        <div className="bg-white border border-[#E4E7EE] rounded-xl p-6">
+        <div className="bg-white border border-[##EDE9FE] rounded-xl p-6">
           <h2 className="font-semibold text-ink text-sm mb-1">Invoice Defaults</h2>
           <p className="text-xs text-ink-secondary mb-5">Pre-filled on every new invoice</p>
           <div className="space-y-4">
@@ -138,14 +138,14 @@ export default function Settings() {
             </div>
             <div>
               <label className="block text-[11px] font-bold text-ink-secondary uppercase tracking-wider mb-1">Default Notes / Payment Terms</label>
-              <textarea value={form.default_notes} onChange={e => setForm({ ...form, default_notes: e.target.value })} placeholder="Payment is due within 14 days. Thank you for your business." rows={3} className="w-full px-3 py-2 text-sm border border-[#E4E7EE] rounded-lg outline-none focus:border-[#1B4FFF] transition-all resize-none" />
+              <textarea value={form.default_notes} onChange={e => setForm({ ...form, default_notes: e.target.value })} placeholder="Payment is due within 14 days. Thank you for your business." rows={3} className="w-full px-3 py-2 text-sm border border-[##EDE9FE] rounded-lg outline-none focus:border-[#6D28D9] transition-all resize-none" />
             </div>
           </div>
         </div>
 
         {/* Demo credentials reminder */}
-        <div className="bg-[#EEF2FF] border border-[#1B4FFF30] rounded-xl p-4">
-          <p className="text-xs font-semibold text-[#1B4FFF] mb-1">Demo Credentials</p>
+        <div className="bg-[#EDE9FE] border border-[#6D28D930] rounded-xl p-4">
+          <p className="text-xs font-semibold text-[#6D28D9] mb-1">Demo Credentials</p>
           <p className="text-xs text-ink-secondary">
             Email: <span className="font-mono font-semibold text-ink">demo@billflow.app</span> &nbsp;·&nbsp;
             Password: <span className="font-mono font-semibold text-ink">Demo@2026!</span>

@@ -127,7 +127,7 @@ export default function InvoiceDetail() {
     return (
       <div className="min-h-screen bg-bg flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 rounded-full border-2 border-[#1B4FFF] border-t-transparent animate-spin" />
+          <div className="w-8 h-8 rounded-full border-2 border-[#6D28D9] border-t-transparent animate-spin" />
           <p className="text-sm text-ink-secondary">Loading invoice...</p>
         </div>
       </div>
@@ -167,7 +167,7 @@ export default function InvoiceDetail() {
                 onClick={() => updateStatus('sent')}
                 disabled={updating}
                 className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
-                style={{ background: '#1B4FFF' }}
+                style={{ background: '#6D28D9' }}
               >
                 <Send size={14} />
                 Mark as Sent
@@ -211,7 +211,7 @@ export default function InvoiceDetail() {
               <button
                 onClick={handleSendEmail}
                 disabled={sending}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border border-[#E4E7EE] bg-white text-ink hover:bg-bg transition-all"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border border-[##EDE9FE] bg-white text-ink hover:bg-bg transition-all"
               >
                 <Mail size={14} />
                 {sending ? 'Sending...' : 'Email Invoice'}
@@ -222,7 +222,7 @@ export default function InvoiceDetail() {
             <button
               onClick={downloadPDF}
               disabled={downloading}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border border-[#E4E7EE] bg-white text-ink hover:bg-bg transition-all"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border border-[##EDE9FE] bg-white text-ink hover:bg-bg transition-all"
             >
               <Download size={14} />
               {downloading ? 'Generating...' : 'Download PDF'}
@@ -232,12 +232,12 @@ export default function InvoiceDetail() {
             <div className="relative">
               <button
                 onClick={() => setShowMenu(!showMenu)}
-                className="p-2 rounded-lg border border-[#E4E7EE] hover:bg-bg transition-all"
+                className="p-2 rounded-lg border border-[##EDE9FE] hover:bg-bg transition-all"
               >
                 <MoreHorizontal size={16} className="text-ink-secondary" />
               </button>
               {showMenu && (
-                <div className="absolute right-0 top-10 bg-white border border-[#E4E7EE] rounded-xl shadow-lg py-1 w-44 z-30">
+                <div className="absolute right-0 top-10 bg-white border border-[##EDE9FE] rounded-xl shadow-lg py-1 w-44 z-30">
                   {invoice.status === 'sent' && (
                     <button
                       onClick={() => { updateStatus('overdue'); setShowMenu(false) }}
@@ -299,13 +299,13 @@ export default function InvoiceDetail() {
         )}
 
         {/* Printable Invoice */}
-        <div ref={printRef} className="bg-white border border-[#E4E7EE] rounded-xl overflow-hidden shadow-sm">
+        <div ref={printRef} className="bg-white border border-[##EDE9FE] rounded-xl overflow-hidden shadow-sm">
 
           {/* Header */}
           <div className="grid grid-cols-2 gap-8 px-10 pt-10 pb-8 border-b border-[#E4E7EE]">
             <div>
               <div className="w-14 h-14 rounded-xl bg-primary-light flex items-center justify-center mb-3">
-                <span className="text-lg font-bold" style={{ color: '#1B4FFF', ...display }}>
+                <span className="text-lg font-bold" style={{ color: '#6D28D9', ...display }}>
                   {profile?.business_name?.[0]?.toUpperCase() || 'B'}
                 </span>
               </div>
@@ -318,7 +318,7 @@ export default function InvoiceDetail() {
             </div>
 
             <div className="text-right">
-              <p className="text-3xl font-bold mb-3" style={{ ...display, color: '#1B4FFF' }}>
+              <p className="text-3xl font-bold mb-3" style={{ ...display, color: '#6D28D9' }}>
                 INVOICE
               </p>
               <p className="text-sm font-bold text-ink" style={mono}>
@@ -409,7 +409,7 @@ export default function InvoiceDetail() {
               )}
               <div className="border-t-2 border-ink pt-3 flex justify-between items-center">
                 <span className="font-bold text-ink">Total</span>
-                <span className="font-bold text-2xl" style={{ ...mono, color: '#1B4FFF' }}>
+                <span className="font-bold text-2xl" style={{ ...mono, color: '#6D28D9' }}>
                   {currencySymbol}{fmt(invoice.total)}
                 </span>
               </div>

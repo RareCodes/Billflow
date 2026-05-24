@@ -66,7 +66,7 @@ export default function Invoices() {
         <button
           onClick={() => navigate('/invoices/new')}
           className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
-          style={{ background: '#1B4FFF' }}
+          style={{ background: '#6D28D9' }}
         >
           <Plus size={16} />
           New Invoice
@@ -82,7 +82,7 @@ export default function Invoices() {
             placeholder="Search by client or invoice number..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full h-10 pl-9 pr-3 text-sm border border-[#E4E7EE] rounded-lg outline-none focus:border-[#1B4FFF] transition-all"
+            className="w-full h-10 pl-9 pr-3 text-sm border border-[##EDE9FE] rounded-lg outline-none focus:border-[#6D28D9] transition-all"
           />
         </div>
         <div className="flex gap-2">
@@ -92,9 +92,9 @@ export default function Invoices() {
               onClick={() => setFilter(f)}
               className="px-3 py-2 rounded-lg text-xs font-semibold capitalize transition-all"
               style={{
-                background: filter === f ? '#1B4FFF' : 'white',
+                background: filter === f ? '#6D28D9' : 'white',
                 color: filter === f ? 'white' : '#5C6070',
-                border: `1px solid ${filter === f ? '#1B4FFF' : '#E4E7EE'}`,
+                border: `1px solid ${filter === f ? '#6D28D9' : '#E4E7EE'}`,
               }}
             >
               {f}
@@ -104,7 +104,7 @@ export default function Invoices() {
       </div>
 
       {/* Table */}
-      <div className="bg-white border border-[#E4E7EE] rounded-xl overflow-hidden">
+      <div className="bg-white border border-[##EDE9FE] rounded-xl overflow-hidden">
         {loading ? (
           <div className="py-16 text-center text-ink-secondary text-sm">Loading invoices...</div>
         ) : filtered.length === 0 ? (
@@ -118,7 +118,7 @@ export default function Invoices() {
               <button
                 onClick={() => navigate('/invoices/new')}
                 className="mt-4 px-4 py-2 rounded-lg text-sm font-semibold text-white"
-                style={{ background: '#1B4FFF' }}
+                style={{ background: '#6D28D9' }}
               >
                 Create Invoice
               </button>

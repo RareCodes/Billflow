@@ -7,45 +7,45 @@ export default {
   theme: {
     extend: {
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-          light: '#EEF2FF',
-          dark: '#1238CC',
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-        ink: {
-          DEFAULT: '#0F1117',
-          secondary: '#5C6070',
-          muted: '#9EA3B0',
-        },
-        surface: '#FFFFFF',
-        bg: '#F5F6FA',
-      },
+  border: "hsl(var(--border))",
+  input: "hsl(var(--input))",
+  ring: "hsl(var(--ring))",
+  background: "hsl(var(--background))",
+  foreground: "hsl(var(--foreground))",
+  primary: {
+    DEFAULT: '#6D28D9',
+    light: '#EDE9FE',
+    dark: '#5B21B6',
+    foreground: "hsl(var(--primary-foreground))",
+  },
+  secondary: {
+    DEFAULT: "hsl(var(--secondary))",
+    foreground: "hsl(var(--secondary-foreground))",
+  },
+  destructive: {
+    DEFAULT: "hsl(var(--destructive))",
+    foreground: "hsl(var(--destructive-foreground))",
+  },
+  muted: {
+    DEFAULT: "hsl(var(--muted))",
+    foreground: "hsl(var(--muted-foreground))",
+  },
+  accent: {
+    DEFAULT: '#FF6B4A',
+    foreground: "hsl(var(--accent-foreground))",
+  },
+  card: {
+    DEFAULT: "hsl(var(--card))",
+    foreground: "hsl(var(--card-foreground))",
+  },
+  ink: {
+    DEFAULT: '#1E0A3C',
+    secondary: '#6B5B8A',
+    muted: '#9EA3B0',
+  },
+  surface: '#FFFFFF',
+  bg: '#F5F6FA',
+},
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

@@ -23,7 +23,7 @@ export default function Sidebar() {
       {/* Logo */}
       <div className="px-6 py-5 border-b border-[#E4E7EE]">
         <h1 className="text-xl font-bold text-ink" style={{ fontFamily: 'Sora, sans-serif' }}>
-          Bill<span style={{ color: '#1B4FFF' }}>Flow</span>
+          Bill<span style={{ color: '#6D28D9' }}>Flow</span>
         </h1>
       </div>
 
@@ -36,7 +36,7 @@ export default function Sidebar() {
             className={({ isActive }) =>
               `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
                 isActive
-                  ? 'bg-primary-light text-[#1B4FFF]'
+                  ? 'bg-primary-light text-[#6D28D9]'
                   : 'text-ink-secondary hover:bg-bg hover:text-ink'
               }`
             }

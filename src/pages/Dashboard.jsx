@@ -36,7 +36,7 @@ function MiniBarChart({ data }) {
             className="w-full rounded-t-sm transition-all duration-500"
             style={{
               height: `${Math.max((d.value / max) * 52, d.value > 0 ? 6 : 2)}px`,
-              background: d.isCurrentMonth ? '#1B4FFF' : '#E4E7EE',
+              background: d.isCurrentMonth ? '#6D28D9' : '#E4E7EE',
             }}
           />
           <span className="text-[9px] text-ink-muted">{d.label}</span>
@@ -60,7 +60,7 @@ function OnboardingStep({ done, label, description, action, onClick }) {
       }`}>
         {done
           ? <CheckCircle size={14} className="text-green-600" />
-          : <span className="w-2 h-2 rounded-full bg-ink-muted group-hover:bg-[#1B4FFF]" style={{ display: 'block' }} />
+          : <span className="w-2 h-2 rounded-full bg-ink-muted group-hover:bg-[#6D28D9]" style={{ display: 'block' }} />
         }
       </div>
       <div className="flex-1 min-w-0">
@@ -70,7 +70,7 @@ function OnboardingStep({ done, label, description, action, onClick }) {
         <p className="text-xs text-ink-secondary mt-0.5">{description}</p>
       </div>
       {!done && (
-        <ArrowRight size={14} className="text-ink-muted group-hover:text-[#1B4FFF] shrink-0 mt-1 transition-colors" />
+        <ArrowRight size={14} className="text-ink-muted group-hover:text-[#6D28D9] shrink-0 mt-1 transition-colors" />
       )}
     </div>
   )
@@ -195,7 +195,7 @@ export default function Dashboard() {
       <AppLayout>
         <div className="flex items-center justify-center py-32">
           <div className="flex flex-col items-center gap-3">
-            <div className="w-8 h-8 rounded-full border-2 border-[#1B4FFF] border-t-transparent animate-spin" />
+            <div className="w-8 h-8 rounded-full border-2 border-[#6D28D9] border-t-transparent animate-spin" />
             <p className="text-sm text-ink-secondary">Loading your dashboard...</p>
           </div>
         </div>
@@ -221,7 +221,7 @@ export default function Dashboard() {
         <button
           onClick={() => navigate('/invoices/new')}
           className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
-          style={{ background: '#1B4FFF' }}
+          style={{ background: '#6D28D9' }}
         >
           <Plus size={16} />
           New Invoice
@@ -230,15 +230,15 @@ export default function Dashboard() {
 
       {/* ── Onboarding Checklist ──────────────────────────── */}
       {showOnboarding && (
-        <div className="bg-white border border-[#1B4FFF30] rounded-xl p-6 mb-6 relative overflow-hidden">
+        <div className="bg-white border border-[#6D28D930] rounded-xl p-6 mb-6 relative overflow-hidden">
           {/* Background accent */}
           <div className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-5"
-            style={{ background: '#1B4FFF', transform: 'translate(30%, -30%)' }} />
+            style={{ background: '#6D28D9', transform: 'translate(30%, -30%)' }} />
 
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-lg bg-primary-light flex items-center justify-center">
-                <Zap size={17} style={{ color: '#1B4FFF' }} />
+                <Zap size={17} style={{ color: '#6D28D9' }} />
               </div>
               <div>
                 <p className="font-semibold text-ink text-sm">Get started with BillFlow</p>
@@ -259,7 +259,7 @@ export default function Dashboard() {
           <div className="h-1.5 bg-[#E4E7EE] rounded-full mb-4 overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-700"
-              style={{ width: `${progressPct}%`, background: '#1B4FFF' }}
+              style={{ width: `${progressPct}%`, background: '#6D28D9' }}
             />
           </div>
 
@@ -316,9 +316,9 @@ export default function Dashboard() {
       {isNewUser ? (
         /* ── Empty State — Quick Actions ──────────────────── */
         <div className="space-y-6">
-          <div className="bg-white border border-[#E4E7EE] rounded-xl p-8 text-center">
+          <div className="bg-white border border-[##EDE9FE] rounded-xl p-8 text-center">
             <div className="w-14 h-14 rounded-2xl bg-primary-light flex items-center justify-center mx-auto mb-4">
-              <FileText size={24} style={{ color: '#1B4FFF' }} />
+              <FileText size={24} style={{ color: '#6D28D9' }} />
             </div>
             <h2 className="font-bold text-ink text-base mb-1" style={{ fontFamily: 'Sora, sans-serif' }}>
               Your workspace is ready
@@ -329,7 +329,7 @@ export default function Dashboard() {
             <button
               onClick={() => navigate('/invoices/new')}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
-              style={{ background: '#1B4FFF' }}
+              style={{ background: '#6D28D9' }}
             >
               <Plus size={16} />
               Create your first invoice
@@ -341,15 +341,15 @@ export default function Dashboard() {
             <p className="text-xs font-bold text-ink-muted uppercase tracking-wider mb-3">Quick Actions</p>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
               {[
-                { icon: FileText, label: 'New Invoice', desc: 'Bill a client', color: '#1B4FFF', bg: '#EEF2FF', path: '/invoices/new' },
+                { icon: FileText, label: 'New Invoice', desc: 'Bill a client', color: '#6D28D9', bg: '#EDE9FE', path: '/invoices/new' },
                 { icon: Users,    label: 'Add Client',  desc: 'Save client info', color: '#8B5CF6', bg: '#F5F3FF', path: '/clients' },
-                { icon: Clock,    label: 'My Invoices', desc: 'View all invoices', color: '#F59E0B', bg: '#FFFBEB', path: '/invoices' },
+                { icon: Clock,    label: 'My Invoices', desc: 'View all invoices', color: '#F59E0B', bg: '#EDE9FE', path: '/invoices' },
                 { icon: Settings, label: 'Settings',    desc: 'Setup your profile', color: '#5C6070', bg: '#F3F4F6', path: '/settings' },
               ].map(({ icon: Icon, label, desc, color, bg, path }) => (
                 <button
                   key={label}
                   onClick={() => navigate(path)}
-                  className="bg-white border border-[#E4E7EE] rounded-xl p-4 text-left hover:border-[#CBD0DB] hover:shadow-sm transition-all group"
+                  className="bg-white border border-[##EDE9FE] rounded-xl p-4 text-left hover:border-[#CBD0DB] hover:shadow-sm transition-all group"
                 >
                   <div className="w-9 h-9 rounded-lg flex items-center justify-center mb-3" style={{ background: bg }}>
                     <Icon size={17} style={{ color }} />
@@ -365,14 +365,14 @@ export default function Dashboard() {
         /* ── Active User Dashboard ────────────────────────── */
         <div className="space-y-6">
           {/* Receivables strip */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-[#E4E7EE] rounded-xl overflow-hidden border border-[#E4E7EE]">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-[#E4E7EE] rounded-xl overflow-hidden border border-[##EDE9FE]">
             {[
               {
                 label: 'Total Receivables',
                 value: fmt(totalReceivable),
                 icon: TrendingUp,
-                iconColor: '#1B4FFF',
-                iconBg: '#EEF2FF',
+                iconColor: '#6D28D9',
+                iconBg: '#EDE9FE',
                 sub: `${unpaidInvoices.length + overdueInvoices.length} invoices`,
               },
               {
@@ -388,7 +388,7 @@ export default function Dashboard() {
                 value: fmt(unpaidInvoices.reduce((s, i) => s + i.total, 0)),
                 icon: Clock,
                 iconColor: '#F59E0B',
-                iconBg: '#FFFBEB',
+                iconBg: '#EDE9FE',
                 sub: `${unpaidInvoices.length} invoices`,
               },
               {
@@ -418,14 +418,14 @@ export default function Dashboard() {
           {/* Chart + Quick Actions row */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Monthly revenue chart */}
-            <div className="lg:col-span-2 bg-white border border-[#E4E7EE] rounded-xl p-6">
+            <div className="lg:col-span-2 bg-white border border-[##EDE9FE] rounded-xl p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <p className="text-sm font-semibold text-ink">Revenue Overview</p>
                   <p className="text-xs text-ink-secondary mt-0.5">Paid invoices — last 6 months</p>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-sm" style={{ background: '#1B4FFF' }} />
+                  <div className="w-2.5 h-2.5 rounded-sm" style={{ background: '#6D28D9' }} />
                   <span className="text-xs text-ink-secondary">Current month</span>
                 </div>
               </div>
@@ -438,7 +438,7 @@ export default function Dashboard() {
                 </p>
                 <button
                   onClick={() => navigate('/invoices')}
-                  className="flex items-center gap-1 text-xs font-medium text-[#1B4FFF] hover:opacity-80 transition-all"
+                  className="flex items-center gap-1 text-xs font-medium text-[#6D28D9] hover:opacity-80 transition-all"
                 >
                   All invoices <ChevronRight size={12} />
                 </button>
@@ -446,7 +446,7 @@ export default function Dashboard() {
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-white border border-[#E4E7EE] rounded-xl p-5">
+            <div className="bg-white border border-[##EDE9FE] rounded-xl p-5">
               <p className="text-sm font-semibold text-ink mb-4">Quick Actions</p>
               <div className="space-y-2">
                 {[
@@ -465,12 +465,12 @@ export default function Dashboard() {
                     }`}
                   >
                     <div className={`w-7 h-7 rounded-md flex items-center justify-center shrink-0 ${
-                      primary ? 'bg-[#1B4FFF]' : 'bg-[#F3F4F6]'
+                      primary ? 'bg-[#6D28D9]' : 'bg-[#F3F4F6]'
                     }`}>
                       <Icon size={13} style={{ color: primary ? 'white' : '#5C6070' }} />
                     </div>
                     <div>
-                      <p className={`text-xs font-semibold ${primary ? 'text-[#1B4FFF]' : 'text-ink'}`}>{label}</p>
+                      <p className={`text-xs font-semibold ${primary ? 'text-[#6D28D9]' : 'text-ink'}`}>{label}</p>
                       <p className="text-[11px] text-ink-muted">{desc}</p>
                     </div>
                   </button>
@@ -480,12 +480,12 @@ export default function Dashboard() {
           </div>
 
           {/* Recent Invoices */}
-          <div className="bg-white border border-[#E4E7EE] rounded-xl overflow-hidden">
+          <div className="bg-white border border-[##EDE9FE] rounded-xl overflow-hidden">
             <div className="flex items-center justify-between px-6 py-4 border-b border-[#E4E7EE]">
               <h2 className="font-semibold text-ink text-sm">Recent Invoices</h2>
               <button
                 onClick={() => navigate('/invoices')}
-                className="flex items-center gap-1 text-xs font-medium text-[#1B4FFF] hover:opacity-80 transition-all"
+                className="flex items-center gap-1 text-xs font-medium text-[#6D28D9] hover:opacity-80 transition-all"
               >
                 View All <ChevronRight size={13} />
               </button>

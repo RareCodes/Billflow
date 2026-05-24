@@ -41,7 +41,7 @@ export default function Clients() {
     setClients(prev => prev.filter(c => c.id !== id))
   }
 
-  const inputCls = "w-full h-9 px-3 text-sm border border-[#E4E7EE] rounded-lg outline-none focus:border-[#1B4FFF] transition-all"
+  const inputCls = "w-full h-9 px-3 text-sm border border-[##EDE9FE] rounded-lg outline-none focus:border-[#6D28D9] transition-all"
 
   return (
     <AppLayout>
@@ -53,7 +53,7 @@ export default function Clients() {
         <button
           onClick={() => setShowForm(!showForm)}
           className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
-          style={{ background: '#1B4FFF' }}
+          style={{ background: '#6D28D9' }}
         >
           <Plus size={16} />
           Add Client
@@ -62,7 +62,7 @@ export default function Clients() {
 
       {/* Add Client Form */}
       {showForm && (
-        <div className="bg-white border border-[#1B4FFF] rounded-xl p-6 mb-6">
+        <div className="bg-white border border-[#6D28D9] rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-ink mb-4 text-sm">New Client</h2>
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div>
@@ -85,7 +85,7 @@ export default function Clients() {
           <div className="flex gap-3">
             <button onClick={saveClient} disabled={saving}
               className="px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
-              style={{ background: '#1B4FFF' }}>
+              style={{ background: '#6D28D9' }}>
               {saving ? 'Saving...' : 'Save Client'}
             </button>
             <button onClick={() => setShowForm(false)}
@@ -100,23 +100,23 @@ export default function Clients() {
       {loading ? (
         <div className="py-16 text-center text-sm text-ink-secondary">Loading clients...</div>
       ) : clients.length === 0 ? (
-        <div className="bg-white border border-[#E4E7EE] rounded-xl py-16 text-center">
+        <div className="bg-white border border-[##EDE9FE] rounded-xl py-16 text-center">
           <Users size={36} className="mx-auto text-ink-muted mb-3" />
           <p className="font-semibold text-ink text-sm">No clients yet</p>
           <p className="text-xs text-ink-secondary mt-1 mb-4">Save client info to reuse across invoices</p>
           <button onClick={() => setShowForm(true)}
             className="px-4 py-2 rounded-lg text-sm font-semibold text-white"
-            style={{ background: '#1B4FFF' }}>
+            style={{ background: '#6D28D9' }}>
             Add Your First Client
           </button>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {clients.map(client => (
-            <div key={client.id} className="bg-white border border-[#E4E7EE] rounded-xl p-5 hover:border-[#1B4FFF30] hover:shadow-sm transition-all group">
+            <div key={client.id} className="bg-white border border-[##EDE9FE] rounded-xl p-5 hover:border-[#6D28D930] hover:shadow-sm transition-all group">
               <div className="flex items-start justify-between mb-3">
                 <div className="w-10 h-10 rounded-lg bg-primary-light flex items-center justify-center">
-                  <span className="text-sm font-bold" style={{ color: '#1B4FFF' }}>
+                  <span className="text-sm font-bold" style={{ color: '#6D28D9' }}>
                     {client.name[0].toUpperCase()}
                   </span>
                 </div>

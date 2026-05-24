@@ -92,7 +92,7 @@ export default function ReceiptDetail() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => window.print()}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border border-[#E4E7EE] bg-white text-ink hover:bg-bg transition-all"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border border-[##EDE9FE] bg-white text-ink hover:bg-bg transition-all"
             >
               <Printer size={14} />
               Print
@@ -114,7 +114,7 @@ export default function ReceiptDetail() {
       <div className="max-w-3xl mx-auto px-6 py-8">
         <div
           ref={printRef}
-          className="bg-white border border-[#E4E7EE] rounded-xl overflow-hidden shadow-sm"
+          className="bg-white border border-[##EDE9FE] rounded-xl overflow-hidden shadow-sm"
         >
           {/* Green paid header bar */}
           <div className="h-2 w-full" style={{ background: 'linear-gradient(90deg, #16A34A, #22C55E)' }} />

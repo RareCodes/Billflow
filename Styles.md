@@ -25,19 +25,19 @@ BillFlow sits at the intersection of **professional credibility and human warmth
 ```css
 :root {
   /* Brand — Electric Indigo */
-  --color-primary:       #1B4FFF;   /* CTAs, links, active states */
-  --color-primary-light: #EEF2FF;   /* Hover backgrounds, selected rows, icon backgrounds */
-  --color-primary-dark:  #1238CC;   /* Pressed/active states */
+  --color-primary:       #6D28D9;   /* CTAs, links, active states */
+  --color-primary-light: #EDE9FE;   /* Hover backgrounds, selected rows, icon backgrounds */
+  --color-primary-dark:  #5B21B6;   /* Pressed/active states */
 
   /* Neutrals */
-  --color-ink:           #0F1117;   /* Primary text — near black, not pure black */
+  --color-ink:           ##EDE9FE;   /* Primary text — near black, not pure black */
   --color-ink-secondary: #5C6070;   /* Labels, metadata, secondary text */
   --color-ink-muted:     #9EA3B0;   /* Placeholders, disabled, tertiary */
 
   /* Surfaces */
   --color-surface:       #FFFFFF;   /* Cards, modals, document body */
   --color-bg:            #F5F6FA;   /* Page background — warm off-white */
-  --color-border:        #E4E7EE;   /* Dividers, input borders, card borders */
+  --color-border:      #E8E4F0;   /* Dividers, input borders, card borders */
   --color-border-strong: #CBD0DB;   /* Active input borders, focused states */
 
   /* Status — Invoice */
@@ -49,7 +49,7 @@ BillFlow sits at the intersection of **professional credibility and human warmth
   /* Status backgrounds */
   --color-success-bg:    #F0FDF4;
   --color-error-bg:      #FEF2F2;
-  --color-warning-bg:    #FFFBEB;
+  --color-warning-bg:   #EDE9FE;
   --color-info-bg:       #EFF6FF;
 
   /* Shadows */
@@ -176,7 +176,7 @@ font-weight: 700;
 
 ```
 Primary (Blue):
-  background: #1B4FFF
+  background: #6D28D9
   color: white
   height: 40px (h-10)
   padding: 0 16px (px-4)
@@ -188,14 +188,14 @@ Primary (Blue):
 Secondary (Outlined):
   background: white
   border: 1px solid #E4E7EE
-  color: #0F1117
+  color: ##EDE9FE
   Same dimensions as primary
   hover: background #F5F6FA
 
 Ghost (Text):
   background: transparent
   color: #5C6070
-  hover: color #0F1117
+  hover: color ##EDE9FE
   No border
 
 Danger:
@@ -214,17 +214,17 @@ font-size: 14px
 font-family: DM Sans
 padding: 0 12px
 background: white
-color: #0F1117
+color: ##EDE9FE
 placeholder: #9EA3B0
 
 focus:
-  border-color: #1B4FFF
+  border-color: #6D28D9
   box-shadow: 0 0 0 2px rgba(27, 79, 255, 0.08)
 
 Line item inputs (table cells):
   border: 1px solid transparent (invisible until hover/focus)
   hover: border-color #E4E7EE
-  focus: border-color #1B4FFF
+  focus: border-color #6D28D9
   — This gives the spreadsheet-like feel
 ```
 
@@ -268,12 +268,12 @@ Nav items:
   font-size: 14px / medium
   gap: 12px (icon + label)
   color (default): #5C6070
-  color (hover): #0F1117
+  color (hover): ##EDE9FE
   background (hover): #F5F6FA
 
 Active state:
-  background: #EEF2FF
-  color: #1B4FFF
+  background: #EDE9FE
+  color: #6D28D9
   font-weight: 500
 
 Logo area:
@@ -338,7 +338,7 @@ Sub: 12px / ink-muted (e.g. "3 invoices")
 ```
 Container: h-16, flex items-end gap-1.5
 Each bar: flex-1, rounded-t-sm
-Active month: #1B4FFF
+Active month: #6D28D9
 Past months: #E4E7EE
 Label: 9px, ink-muted
 Max height: 52px (scales proportionally to max value)
@@ -347,9 +347,9 @@ Min height: 6px (if value > 0), 2px (if 0) — always visible
 
 ### Onboarding Checklist
 ```
-Card: white, border #1B4FFF30 (primary at 19% opacity), rounded-xl
+Card: white, border #6D28D930 (primary at 19% opacity), rounded-xl
 Header: Zap icon (primary-light bg) + title + dismiss button
-Progress bar: h-1.5, bg #E4E7EE, filled #1B4FFF, rounded-full
+Progress bar: h-1.5, bg #E4E7EE, filled #6D28D9, rounded-full
 Steps: 4 items, each with circle indicator + label + description + arrow
   Complete: green circle with CheckCircle icon, label line-through, opacity 60%
   Incomplete: gray circle → primary-light on hover, arrow → primary on hover
@@ -476,13 +476,13 @@ theme: {
       background: "hsl(var(--background))",
       foreground: "hsl(var(--foreground))",
       primary: {
-        DEFAULT: '#1B4FFF',
-        light: '#EEF2FF',
-        dark: '#1238CC',
+        DEFAULT: '#6D28D9',
+        light: '#EDE9FE',
+        dark: '#5B21B6',
         foreground: "hsl(var(--primary-foreground))",
       },
       ink: {
-        DEFAULT: '#0F1117',
+        DEFAULT: '##EDE9FE',
         secondary: '#5C6070',
         muted: '#9EA3B0',
       },
