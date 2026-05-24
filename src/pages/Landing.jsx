@@ -178,7 +178,7 @@ export default function Landing() {
       </nav>
 
       {/* ── HERO ────────────────────────────────────────────── */}
-      <section className="relative pt-28 px-6" style={{ background: '#FAFAFA' }}>
+      <section className="relative pt-28 " style={{ background: '#FAFAFA' }}>
         {/* Dot grid background */}
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: 'radial-gradient(circle, #CBD0DB 1px, transparent 1px)',
@@ -191,7 +191,7 @@ export default function Landing() {
           <div className="flex justify-center mb-5">
             <div className="inline-flex items-center gap-2 bg-[#6D28D9]/10 border border-[#0F1117] rounded-full px-5 py-2">
               <Sparkles size={13} style={{ color: '#0F1117' }} />
-              <span className="text-xs font-black text-[#0F1117]">Built for creatives and small business owners ✦</span>
+              <span className="text-[12px] flex font-black text-[#0F1117]">Built for creatives and business owners ✦</span>
             </div>
           </div>
 
@@ -228,15 +228,14 @@ export default function Landing() {
           </div>
 
           {/* Trust row */}
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5 mb-12">
+          <div className="flex flex-row items-center justify-center gap-4 sm:gap-2 mb-12">
             {[
               { icon: CheckCircle, text: 'No credit card required' },
               { icon: Zap, text: '2-minute setup' },
-              { icon: Shield, text: 'Your data is private' },
             ].map(({ icon: Icon, text }) => (
               <div key={text} className="flex items-center gap-2">
                 <Icon size={15} style={{ color: '#16A34A' }} />
-                <span className="text-sm font-semibold text-[#5C6070]">{text}</span>
+                <span className="text-[12px] font-regular text-[#5C6070]">{text}</span>
               </div>
             ))}
           </div>
@@ -269,7 +268,7 @@ export default function Landing() {
       </div>
 
       {/* ── BENTO FEATURES ──────────────────────────────────── */}
-      <section id="features" className="py-24 px-6">
+      <section id="features" className="py-24">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-xs font-black text-[#6D28D9] uppercase tracking-widest mb-2">✦ Features ✦</p>
@@ -284,7 +283,7 @@ export default function Landing() {
           </div>
 
           {/* Bento grid — single column on mobile, grid on md+ */}
-          <div className="flex flex-col px-16 sm:col-span-8 lg:grid lg:grid-cols-12 gap-8 lg:gap-4">
+          <div className="flex flex-col sm:col-span-8 lg:grid lg:grid-cols-12 gap-8 lg:gap-4">
 
             {/* Big feature — Invoice */}
             <div className="md:col-span-8 bg-[#EDE9FE] border border-[#0F1117] rounded-3xl p-6 sm:p-8 card-hover">
@@ -370,12 +369,12 @@ export default function Landing() {
             </div>
 
             {/* Security */}
-            <div className="md:col-span-4 bg-[#0F1117] border border-[#0F1117] rounded-3xl p-6 card-hover">
-              <div className="w-12 h-12 rounded-2xl bg-[#6D28D9] border-2 border-white/20 flex items-center justify-center mb-3">
+            <div className="md:col-span-4 bg-[#FFFBEB] border border-[#0F1117] rounded-3xl p-6 card-hover">
+              <div className="w-12 h-12 rounded-2xl bg-[#F59E0B] border border-[#0F1117] flex items-center justify-center mb-3">
                 <Shield size={20} className="text-white" />
               </div>
-              <h3 className="text-xl font-black text-white mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>Private & secure</h3>
-              <p className="text-sm text-white/60 font-medium leading-relaxed">
+              <h3 className="text-xl font-black text-[#0F1117] mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>Private & secure</h3>
+              <p className="text-sm text-[#0F1117/60 font-medium leading-relaxed">
                 Row Level Security means only YOU see your financial records. Always.
               </p>
             </div>
@@ -384,7 +383,7 @@ export default function Landing() {
       </section>
 
       {/* ── HOW IT WORKS ────────────────────────────────────── */}
-      <section id="how-it-works" className="py-24 px-6">
+      <section id="how-it-works" className="py-24">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-xs font-black text-[#6D28D9] uppercase tracking-widest mb-2">✦ How it works ✦</p>
@@ -395,7 +394,7 @@ export default function Landing() {
           </div>
 
           {/* Single column on mobile, 4 columns on large screens */}
-          <div className="flex flex-col lg:grid lg:grid-cols-4 gap-8 px-16 lg:gap-4">
+          <div className="flex flex-col lg:grid lg:grid-cols-4 gap-8 lg:gap-4">
             {[
               { step: '01', title: 'Create account', desc: 'Sign up free with your email. No card, no delay, no nonsense.', bg: '#EDE9FE', accent: '#6D28D9' },
               { step: '02', title: 'Set up profile', desc: 'Add business name and details. Shows on every invoice automatically.', bg: '#FFFFFF', accent: '#8B5CF6' },
@@ -422,9 +421,9 @@ export default function Landing() {
 
           <div className="flex justify-center mt-8">
             <button onClick={() => navigate('/auth')}
-              className="btn-bounce flex items-center gap-2 px-8 py-4 rounded-2xl text-base font-black text-white border border-[#0F1117]"
+              className="btn-bounce w-full justify-center flex items-center gap-2 px-8 py-4 rounded-2xl text-base font-black text-white border border-[#0F1117]"
               style={{ background: '#6D28D9' }}>
-              Start now — it's completely free
+              Start now — free
               <ArrowRight size={16} />
             </button>
           </div>
@@ -432,7 +431,7 @@ export default function Landing() {
       </section>
 
       {/* ── TESTIMONIALS ────────────────────────────────────── */}
-      <section className="py-24 px-6" style={{ background: '#F5F6FA' }}>
+      <section className="py-24" style={{ background: '#F5F6FA' }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-xs font-black text-[#6D28D9] uppercase tracking-widest mb-2">✦ Reviews ✦</p>
@@ -443,7 +442,7 @@ export default function Landing() {
           </div>
 
           {/* Single column on mobile, 3 columns on md+ */}
-          <div className="flex flex-col lg:grid lg:grid-cols-3 gap-8 px-16 lg:gap-4">
+          <div className="flex flex-col lg:grid lg:grid-cols-3 gap-8 lg:gap-4">
             {[
               { name: 'Tolu Adeyemi', role: 'Brand Designer · Lagos', text: 'I used to send invoices on WhatsApp as screenshots. Billit makes me look 10x more professional. My clients actually pay on time now.', avatar: 'T', bg: '#EDE9FE', accent: '#6D28D9' },
               { name: 'Emeka Okafor', role: 'Fullstack Dev · Abuja', text: 'The auto receipt is a game changer. I used to forget to send receipts for weeks. Now the moment I mark paid, the receipt is already there waiting.', avatar: 'E', bg: '#F0FDF4', accent: '#16A34A' },
@@ -471,7 +470,7 @@ export default function Landing() {
       </section>
 
       {/* ── FAQ ─────────────────────────────────────────────── */}
-      <section id="faq" className="py-24 px-6" style={{ background: '#FFFFFF' }}>
+      <section id="faq" className="py-24" style={{ background: '#FFFFFF' }}>
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-xs font-black text-[#6D28D9] uppercase tracking-widest mb-2">✦ FAQ ✦</p>
@@ -479,19 +478,19 @@ export default function Landing() {
               Quick answers.
             </h2>
           </div>
-          <div className="space-y-6 lg:space-y-3 px-4">
+          <div className="space-y-6 lg:space-y-3">
             {faqs.map((faq, i) => (
               <div key={i} className="bg-white border border-[#0F1117] rounded-2xl overflow-hidden"
                 style={{ boxShadow: openFaq === i ? '1px 1px 0px #6D28D9' : '' }}>
                 <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-[#FAFAFA] transition-colors">
-                  <span className="font-black text-[#0F1117] text-sm pr-4" style={{ fontFamily: 'Outfit, sans-serif' }}>{faq.q}</span>
+                  <span className="font-medium text-[#0F1117] text-sm pr-4" style={{ fontFamily: 'Outfit, sans-serif' }}>{faq.q}</span>
                   <ChevronDown size={16} className="text-[#5C6070] shrink-0 transition-transform duration-300"
                     style={{ transform: openFaq === i ? 'rotate(180deg)' : 'rotate(0)' }} />
                 </button>
                 {openFaq === i && (
                   <div className="px-6 pb-5 border-t border-[#E4E7EE]">
-                    <p className="text-sm text-[#5C6070] font-medium leading-relaxed pt-3">{faq.a}</p>
+                    <p className="text-sm text-[#0F1117] font-regular leading-relaxed pt-3">{faq.a}</p>
                   </div>
                 )}
               </div>
@@ -501,7 +500,7 @@ export default function Landing() {
       </section>
 
       {/* ── FINAL CTA ───────────────────────────────────────── */}
-      <section className="py-24 px-16 sm:py-32 px-6">
+      <section className="py-24 sm:py-32">
         <div className="max-w-5xl mx-auto">
           <div className="bg-[#0F1117] border border-[#0F1117] rounded-3xl p-8 sm:p-12 md:p-16 text-center relative overflow-hidden">
             <div className="absolute inset-0 pointer-events-none opacity-10"
