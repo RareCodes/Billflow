@@ -9,6 +9,7 @@ import Clients from './pages/Clients'
 import Settings from './pages/Settings'
 import ReceiptDetail from './pages/ReceiptDetail'
 import Landing from './pages/Landing'
+import ResetPassword from './pages/ResetPassword'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
 <Route path="/clients" element={<Clients />} />
 <Route path="/settings" element={<Settings />} />
 <Route path="*" element={<Navigate to="/" replace />} />
+<Route path="/reset-password" element={<ResetPassword />} />
     </Routes>
   )
 }

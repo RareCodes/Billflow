@@ -58,7 +58,7 @@ export default function Invoices() {
   return (
     <AppLayout>
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center mt-8 lg:mt-0 justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-ink" style={{ fontFamily: 'Sora, sans-serif' }}>Invoices</h1>
           <p className="text-ink-secondary text-sm mt-1">{invoices.length} total invoices</p>

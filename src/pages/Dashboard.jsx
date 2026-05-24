@@ -209,7 +209,7 @@ export default function Dashboard() {
   return (
     <AppLayout>
       {/* ── Header ────────────────────────────────────────── */}
-      <div className="flex items-center justify-between mb-6 gap-4">
+      <div className="flex items-center justify-between mb-6 lg:mt-0 mt-8 gap-4">
         <div className="min-w-0">
           <h1 className="text-xl font-bold text-ink truncate" style={{ fontFamily: 'Outfit, sans-serif' }}>
             {isNewUser

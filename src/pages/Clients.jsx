@@ -45,7 +45,7 @@ export default function Clients() {
 
   return (
     <AppLayout>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-6 mt-8 lg:mt-0">
         <div>
           <h1 className="text-xl font-bold text-ink" style={{ fontFamily: 'Sora, sans-serif' }}>Clients</h1>
           <p className="text-sm text-ink-secondary mt-0.5">{clients.length} saved clients</p>

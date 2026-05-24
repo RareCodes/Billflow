@@ -116,7 +116,7 @@ export default function Receipts() {
 
   return (
     <AppLayout>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-6 mt-8 lg:mt-0">
         <div>
           <h1 className="text-xl font-bold text-ink" style={{ fontFamily: 'Sora, sans-serif' }}>Receipts</h1>
           <p className="text-sm text-ink-secondary mt-0.5">{receipts.length} receipts generated</p>
@@ -152,10 +152,7 @@ export default function Receipts() {
               const inv = rec.invoice_snapshot
               const currencySymbol = { NGN: '₦', USD: '$', GBP: '£', EUR: '€', CAD: 'CA$' }[inv?.currency] || '₦'
               return (
-                <div
-  key={rec.id}
-  onClick={() => navigate(`/receipts/${rec.id}`)}
-  className="grid grid-cols-12 px-6 py-3.5 border-b border-[#E4E7EE] last:border-0 hover:bg-bg transition-colors items-center cursor-pointer"
+                <div key={rec.id} onClick={() => navigate(`/receipts/${rec.id}`)} className="grid grid-cols-12 px-6 py-3.5 border-b border-[#E4E7EE] last:border-0 hover:bg-bg transition-colors items-center cursor-pointer"
 >
                   <div className="col-span-2 flex items-center gap-2">
                     <div className="w-6 h-6 rounded-full bg-green-50 flex items-center justify-center shrink-0">
