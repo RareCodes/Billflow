@@ -1,62 +1,152 @@
+import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, FileText, Receipt, Users, Settings, LogOut } from 'lucide-react'
+import { LayoutDashboard, FileText, Receipt, Users, Settings, LogOut, Menu, X } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 
 const navItems = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/invoices', icon: FileText, label: 'Invoices' },
-  { to: '/receipts', icon: Receipt, label: 'Receipts' },
-  { to: '/clients', icon: Users, label: 'Clients' },
-  { to: '/settings', icon: Settings, label: 'Settings' },
+  { to: '/invoices',  icon: FileText,        label: 'Invoices'  },
+  { to: '/receipts',  icon: Receipt,         label: 'Receipts'  },
+  { to: '/clients',   icon: Users,           label: 'Clients'   },
+  { to: '/settings',  icon: Settings,        label: 'Settings'  },
 ]
 
 export default function Sidebar() {
   const navigate = useNavigate()
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
     navigate('/auth')
   }
 
-  return (
-    <aside className="fixed top-0 left-0 h-screen w-56 bg-white border-r border-[#E4E7EE] flex flex-col z-10">
-      {/* Logo */}
-      <div className="px-6 py-5 border-b border-[#E4E7EE]">
-        <h1 className="text-xl font-bold text-ink" style={{ fontFamily: 'Sora, sans-serif' }}>
-          Bill<span style={{ color: '#6D28D9' }}>Flow</span>
-        </h1>
-      </div>
-
-      {/* Nav */}
-      <nav className="flex-1 px-3 py-4 space-y-1">
+  const NavLinks = ({ onItemClick }) => (
+    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, overflow: 'hidden' }}>
+      <nav style={{ flex: 1, padding: '16px 12px' }}>
         {navItems.map(({ to, icon: Icon, label }) => (
           <NavLink
             key={to}
             to={to}
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                isActive
-                  ? 'bg-primary-light text-[#6D28D9]'
-                  : 'text-ink-secondary hover:bg-bg hover:text-ink'
-              }`
-            }
+            onClick={onItemClick}
+            style={({ isActive }) => ({
+              display: 'flex', alignItems: 'center', gap: 12,
+              padding: '10px 12px', borderRadius: 8,
+              fontSize: 14, fontWeight: 600,
+              textDecoration: 'none', marginBottom: 4,
+              background: isActive ? '#EDE9FE' : 'transparent',
+              color: isActive ? '#6D28D9' : '#5C6070',
+            })}
           >
             <Icon size={18} />
             {label}
           </NavLink>
         ))}
       </nav>
-
-      {/* Logout */}
-      <div className="px-3 py-4 border-t border-[#E4E7EE]">
+      <div style={{ padding: '12px', borderTop: '1px solid #E8E4F0' }}>
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-ink-secondary hover:bg-red-50 hover:text-red-500 transition-all w-full"
+          style={{
+            display: 'flex', alignItems: 'center', gap: 12,
+            padding: '10px 12px', borderRadius: 8,
+            fontSize: 14, fontWeight: 600,
+            color: '#5C6070', background: 'none',
+            border: 'none', cursor: 'pointer', width: '100%',
+          }}
         >
           <LogOut size={18} />
           Log Out
         </button>
       </div>
-    </aside>
+    </div>
+  )
+
+  return (
+    <>
+      <style>{`
+        .billit-desktop-sidebar { display: none; }
+        .billit-mobile-topbar { display: flex; }
+        .billit-mobile-drawer { display: none; }
+
+        @media (min-width: 768px) {
+          .billit-desktop-sidebar { display: flex !important; }
+          .billit-mobile-topbar { display: none !important; }
+        }
+      `}</style>
+
+      {/* ── Desktop sidebar ─────────────────────────────── */}
+      <aside className="billit-desktop-sidebar" style={{
+        position: 'fixed', top: 0, left: 0,
+        height: '100vh', width: 224,
+        background: 'white',
+        borderRight: '1px solid #E8E4F0',
+        flexDirection: 'column',
+        zIndex: 10,
+      }}>
+        <div style={{ padding: '20px 24px', borderBottom: '1px solid #E8E4F0' }}>
+          <h1 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 20, fontWeight: 900, color: '#0F1117', margin: 0 }}>
+            Bill<span style={{ color: '#6D28D9' }}>it</span>
+          </h1>
+        </div>
+        <NavLinks />
+      </aside>
+
+      {/* ── Mobile top bar ──────────────────────────────── */}
+      <div className="billit-mobile-topbar" style={{
+        position: 'fixed', top: 0, left: 0, right: 0,
+        zIndex: 40, background: 'white',
+        borderBottom: '1px solid #E8E4F0',
+        padding: '12px 16px',
+        alignItems: 'center', justifyContent: 'space-between',
+      }}>
+        <h1 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 20, fontWeight: 900, color: '#0F1117', margin: 0 }}>
+          Bill<span style={{ color: '#6D28D9' }}>it</span>
+        </h1>
+        <button
+          onClick={() => setMobileOpen(true)}
+          style={{
+            padding: 8, borderRadius: 8,
+            border: '1px solid #E8E4F0',
+            background: 'white', cursor: 'pointer',
+            display: 'flex', alignItems: 'center',
+          }}
+        >
+          <Menu size={18} color="#0F1117" />
+        </button>
+      </div>
+
+      {/* ── Mobile drawer ───────────────────────────────── */}
+      {mobileOpen && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 50 }}>
+          <div
+            style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.4)' }}
+            onClick={() => setMobileOpen(false)}
+          />
+          <div style={{
+            position: 'absolute', top: 0, left: 0,
+            height: '100%', width: 260,
+            background: 'white',
+            boxShadow: '4px 0 24px rgba(0,0,0,0.15)',
+            display: 'flex', flexDirection: 'column',
+          }}>
+            <div style={{
+              padding: '16px 20px',
+              borderBottom: '1px solid #E8E4F0',
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            }}>
+              <h1 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 20, fontWeight: 900, color: '#0F1117', margin: 0 }}>
+                Bill<span style={{ color: '#6D28D9' }}>it</span>
+              </h1>
+              <button
+                onClick={() => setMobileOpen(false)}
+                style={{ padding: 6, border: 'none', background: 'none', cursor: 'pointer' }}
+              >
+                <X size={18} color="#5C6070" />
+              </button>
+            </div>
+            <NavLinks onItemClick={() => setMobileOpen(false)} />
+          </div>
+        </div>
+      )}
+    </>
   )
 }

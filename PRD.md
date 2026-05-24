@@ -1,4 +1,4 @@
-# PRD.md — BillFlow: Receipt & Invoice Generator
+# PRD.md — Billit: Receipt & Invoice Generator
 
 **Version:** 1.0
 **Author:** Rare Victor
@@ -10,9 +10,9 @@
 
 ## 1. Overview
 
-BillFlow is a modern billing web application built for freelancers, creators, small businesses, and vendors in Africa and beyond. It helps users generate professional invoices and receipts from a single workspace — fast, clean, and without requiring accounting knowledge.
+Billit is a modern billing web application built for freelancers, creators, small businesses, and vendors in Africa and beyond. It helps users generate professional invoices and receipts from a single workspace — fast, clean, and without requiring accounting knowledge.
 
-The product solves a real, daily pain point: most small business owners in Nigeria still create invoices manually in Word or WhatsApp chat. BillFlow gives them a professional, trustworthy tool that feels built for them and adapted for the Nigerian market.
+The product solves a real, daily pain point: most small business owners in Nigeria still create invoices manually in Word or WhatsApp chat. Billit gives them a professional, trustworthy tool that feels built for them and adapted for the Nigerian market.
 
 ### Experience Goals
 The product experience is designed to feel:
@@ -97,7 +97,7 @@ Freelancers and small vendors across Africa:
 
 ## 7. Core Functionality Coverage
 
-This section maps every required and suggested feature from the project brief to its implementation in BillFlow.
+This section maps every required and suggested feature from the project brief to its implementation in Billit.
 
 ### 7.1 Required Core Functions
 
@@ -474,5 +474,5 @@ A PostgreSQL trigger (`handle_new_user`) automatically inserts a row into `profi
 | GitHub repository | ✅ |
 | PRD.md (this file) | ✅ |
 | styles.md | ✅ |
-| Demo credentials: `demo@billflow.app` / `Demo@2026!` | ✅ |
+| Demo credentials: `demo@Billit.app` / `Demo@2026!` | ✅ |
 | Social media post | ✅ |

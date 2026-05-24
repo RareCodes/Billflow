@@ -16,7 +16,7 @@ export async function sendInvoiceEmail({ invoice, profile }) {
     <body style="margin:0;padding:0;background:#F5F6FA;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
       <div style="max-width:600px;margin:40px auto;background:white;border-radius:12px;overflow:hidden;border:1px solid #E4E7EE;">
         <div style="background:#6D28D9;padding:32px 40px;">
-          <h1 style="margin:0;color:white;font-size:24px;font-weight:700;">BillFlow</h1>
+          <h1 style="margin:0;color:white;font-size:24px;font-weight:700;">Billit</h1>
           <p style="margin:8px 0 0;color:rgba(255,255,255,0.8);font-size:14px;">
             Invoice from ${profile?.business_name || 'Your Business'}
           </p>
@@ -80,7 +80,7 @@ export async function sendInvoiceEmail({ invoice, profile }) {
         </div>
         <div style="background:#F5F6FA;padding:24px 40px;border-top:1px solid #E4E7EE;">
           <p style="margin:0;font-size:12px;color:#9EA3B0;text-align:center;">
-            Sent by <strong>${profile?.business_name || 'BillFlow'}</strong> via BillFlow
+            Sent by <strong>${profile?.business_name || 'Billit'}</strong> via Billit
             ${profile?.business_email ? `· <a href="mailto:${profile.business_email}" style="color:#6D28D9;text-decoration:none;">${profile.business_email}</a>` : ''}
           </p>
         </div>
@@ -90,9 +90,9 @@ export async function sendInvoiceEmail({ invoice, profile }) {
   `
 
   const payload = {
-    from: 'BillFlow <onboarding@resend.dev>',
+    from: 'Billit <onboarding@resend.dev>',
     to: [clientEmail],
-    subject: `Invoice ${invoice.invoice_number} from ${profile?.business_name || 'BillFlow'} — ${currencySymbol}${fmt(invoice.total)}`,
+    subject: `Invoice ${invoice.invoice_number} from ${profile?.business_name || 'Billit'} — ${currencySymbol}${fmt(invoice.total)}`,
     html,
   }
 

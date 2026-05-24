@@ -220,7 +220,7 @@ export default function Auth() {
             >
               {loading
                 ? 'Please wait...'
-                : tab === 'login' ? 'Log In to BillFlow' : 'Create My Account'}
+                : tab === 'login' ? 'Log In to Billit' : 'Create My Account'}
             </button>
           </form>
         </div>

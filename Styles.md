@@ -1,6 +1,6 @@
-# styles.md — BillFlow Design System
+# styles.md — Billit Design System
 
-**Product:** BillFlow — Receipt & Invoice Generator
+**Product:** Billit — Receipt & Invoice Generator
 **Version:** 2.0
 **Author:** Rare Victor
 **Stage:** HNG14 — Stage 7
@@ -10,7 +10,7 @@
 
 ## 1. Design Philosophy
 
-BillFlow sits at the intersection of **professional credibility and human warmth**. The people using it are one-person businesses who want to be taken seriously by their clients. The UI makes them feel like they run a proper operation — without feeling like enterprise software.
+Billit sits at the intersection of **professional credibility and human warmth**. The people using it are one-person businesses who want to be taken seriously by their clients. The UI makes them feel like they run a proper operation — without feeling like enterprise software.
 
 **Design reference:** Zoho Invoice — document-centric layout, receivables-first dashboard, contextual action buttons.
 

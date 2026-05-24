@@ -8,6 +8,7 @@ import { supabase } from '../lib/supabase'
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
 import { sendInvoiceEmail } from '../lib/email'
+import { ClassicTemplate, BoldTemplate, MinimalTemplate, CreativeTemplate } from '../components/invoice/InvoiceTemplates'
 
 function StatusBadge({ status }) {
   const styles = {
@@ -32,10 +33,13 @@ export default function InvoiceDetail() {
   const [invoice, setInvoice] = useState(null)
   const [profile, setProfile] = useState(null)
   const [loading, setLoading] = useState(true)
+  const template = profile?.invoice_template || 'classic'
   const [updating, setUpdating] = useState(false)
   const [downloading, setDownloading] = useState(false)
   const [sending, setSending] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
+
+  
 
   useEffect(() => { loadInvoice() }, [id])
 
@@ -297,140 +301,46 @@ export default function InvoiceDetail() {
             </p>
           </div>
         )}
+       
+
+
+                {/* Template Selector */}
+            <div className="bg-white border border-[#E4E7EE] rounded-xl px-5 py-4 mb-4 flex items-center gap-3 flex-wrap">
+            <p className="text-xs font-bold text-ink-secondary uppercase tracking-wider shrink-0">Template:</p>
+            {[
+                { id: 'classic', label: 'Classic' },
+                { id: 'bold', label: 'Bold' },
+                { id: 'minimal', label: 'Minimal' },
+                { id: 'creative', label: 'Creative' },
+            ].map(({ id, label }) => (
+                <button
+                key={id}
+                onClick={() => setTemplate(id)}
+                className="px-4 py-1.5 rounded-lg text-xs font-bold transition-all"
+                style={{
+                    background: template === id ? '#6D28D9' : '#F8F7FF',
+                    color: template === id ? 'white' : '#5C6070',
+                    border: `1px solid ${template === id ? '#6D28D9' : '#E4E7EE'}`,
+                }}
+                >
+                {label}
+                </button>
+            ))}
+            </div>
+
+
 
         {/* Printable Invoice */}
-        <div ref={printRef} className="bg-white border border-[##EDE9FE] rounded-xl overflow-hidden shadow-sm">
+      <div ref={printRef} className="bg-white border border-[#E8E4F0] rounded-xl overflow-hidden shadow-sm">
+  {(profile?.invoice_template || 'classic') === 'classic' && <ClassicTemplate invoice={invoice} profile={profile} />}
+  {(profile?.invoice_template || 'classic') === 'bold' && <BoldTemplate invoice={invoice} profile={profile} />}
+  {(profile?.invoice_template || 'classic') === 'minimal' && <MinimalTemplate invoice={invoice} profile={profile} />}
+  {(profile?.invoice_template || 'classic') === 'creative' && <CreativeTemplate invoice={invoice} profile={profile} />}
+</div>
 
-          {/* Header */}
-          <div className="grid grid-cols-2 gap-8 px-10 pt-10 pb-8 border-b border-[#E4E7EE]">
-            <div>
-              <div className="w-14 h-14 rounded-xl bg-primary-light flex items-center justify-center mb-3">
-                <span className="text-lg font-bold" style={{ color: '#6D28D9', ...display }}>
-                  {profile?.business_name?.[0]?.toUpperCase() || 'B'}
-                </span>
-              </div>
-              <p className="font-bold text-ink text-base" style={display}>
-                {profile?.business_name || 'Business Name'}
-              </p>
-              {profile?.business_email && <p className="text-xs text-ink-secondary mt-0.5">{profile.business_email}</p>}
-              {profile?.business_address && <p className="text-xs text-ink-secondary mt-0.5">{profile.business_address}</p>}
-              {profile?.business_phone && <p className="text-xs text-ink-secondary mt-0.5">{profile.business_phone}</p>}
-            </div>
-
-            <div className="text-right">
-              <p className="text-3xl font-bold mb-3" style={{ ...display, color: '#6D28D9' }}>
-                INVOICE
-              </p>
-              <p className="text-sm font-bold text-ink" style={mono}>
-                {invoice.invoice_number}
-              </p>
-              <div className="mt-3 space-y-1">
-                <div className="flex justify-end gap-6 text-xs">
-                  <span className="text-ink-secondary">Invoice Date</span>
-                  <span className="font-medium text-ink w-24">{invoice.issued_date}</span>
-                </div>
-                <div className="flex justify-end gap-6 text-xs">
-                  <span className="text-ink-secondary">Due Date</span>
-                  <span className="font-medium text-ink w-24">{invoice.due_date || '—'}</span>
-                </div>
-                <div className="flex justify-end gap-6 text-xs">
-                  <span className="text-ink-secondary">Payment</span>
-                  <span className="font-medium text-ink w-24">{invoice.payment_method}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bill To */}
-          <div className="px-10 py-6 border-b border-[#E4E7EE]">
-            <p className="text-[10px] font-bold text-ink-muted uppercase tracking-wider mb-2">Bill To</p>
-            <p className="font-bold text-ink">{invoice.client_snapshot?.name}</p>
-            {invoice.client_snapshot?.email && <p className="text-sm text-ink-secondary mt-0.5">{invoice.client_snapshot.email}</p>}
-            {invoice.client_snapshot?.phone && <p className="text-sm text-ink-secondary mt-0.5">{invoice.client_snapshot.phone}</p>}
-            {invoice.client_snapshot?.address && <p className="text-sm text-ink-secondary mt-0.5">{invoice.client_snapshot.address}</p>}
-          </div>
-
-          {/* Line Items */}
-          <div className="px-10 py-6 border-b border-[#E4E7EE]">
-            <table className="w-full">
-              <thead>
-                <tr style={{ background: '#F5F6FA' }}>
-                  <th className="text-left px-4 py-3 text-[10px] font-bold text-ink-muted uppercase tracking-wider rounded-l-lg">Item / Description</th>
-                  <th className="text-center px-4 py-3 text-[10px] font-bold text-ink-muted uppercase tracking-wider">Qty</th>
-                  <th className="text-right px-4 py-3 text-[10px] font-bold text-ink-muted uppercase tracking-wider">Rate</th>
-                  <th className="text-right px-4 py-3 text-[10px] font-bold text-ink-muted uppercase tracking-wider rounded-r-lg">Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(invoice.items || []).map((item, i) => (
-                  <tr key={i} className="border-b border-[#F5F6FA]">
-                    <td className="px-4 py-3 text-sm text-ink">{item.description}</td>
-                    <td className="px-4 py-3 text-sm text-ink-secondary text-center">{item.quantity}</td>
-                    <td className="px-4 py-3 text-sm text-ink-secondary text-right" style={mono}>
-                      {currencySymbol}{fmt(item.unit_price)}
-                    </td>
-                    <td className="px-4 py-3 text-sm font-semibold text-ink text-right" style={mono}>
-                      {currencySymbol}{fmt(item.total)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Totals + Notes */}
-          <div className="grid grid-cols-2 gap-8 px-10 py-8">
-            <div>
-              {invoice.notes && (
-                <div className="mb-4">
-                  <p className="text-[10px] font-bold text-ink-muted uppercase tracking-wider mb-1.5">Notes</p>
-                  <p className="text-sm text-ink-secondary leading-relaxed">{invoice.notes}</p>
-                </div>
-              )}
-              <p className="text-xs text-ink-muted mt-auto">Thank you for your business.</p>
-            </div>
-
-            <div className="space-y-2.5">
-              <div className="flex justify-between text-sm">
-                <span className="text-ink-secondary">Subtotal</span>
-                <span className="font-medium text-ink" style={mono}>{currencySymbol}{fmt(invoice.subtotal)}</span>
-              </div>
-              {invoice.tax_rate > 0 && (
-                <div className="flex justify-between text-sm">
-                  <span className="text-ink-secondary">Tax ({invoice.tax_rate}%)</span>
-                  <span className="font-medium text-ink" style={mono}>{currencySymbol}{fmt(invoice.tax_amount)}</span>
-                </div>
-              )}
-              {invoice.discount > 0 && (
-                <div className="flex justify-between text-sm">
-                  <span className="text-ink-secondary">Discount</span>
-                  <span className="font-medium text-red-500" style={mono}>− {currencySymbol}{fmt(invoice.discount)}</span>
-                </div>
-              )}
-              <div className="border-t-2 border-ink pt-3 flex justify-between items-center">
-                <span className="font-bold text-ink">Total</span>
-                <span className="font-bold text-2xl" style={{ ...mono, color: '#6D28D9' }}>
-                  {currencySymbol}{fmt(invoice.total)}
-                </span>
-              </div>
-              {invoice.status === 'paid' && (
-                <div className="flex justify-between items-center mt-2">
-                  <span className="text-sm font-semibold text-green-600">Amount Paid</span>
-                  <span className="font-bold text-lg text-green-600" style={mono}>
-                    {currencySymbol}{fmt(invoice.total)}
-                  </span>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="px-10 py-4 border-t border-[#E4E7EE] bg-bg flex items-center justify-between">
-            <p className="text-xs text-ink-muted" style={mono}>{invoice.invoice_number}</p>
-            <p className="text-xs text-ink-muted">Generated by BillFlow</p>
-          </div>
+         
         </div>
       </div>
-    </div>
+    
   )
 }
