@@ -9,6 +9,7 @@ import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
 import { sendInvoiceEmail } from '../lib/email'
 import { ClassicTemplate, BoldTemplate, MinimalTemplate, CreativeTemplate } from '../components/invoice/InvoiceTemplates'
+import { toast } from 'sonner'
 
 function StatusBadge({ status }) {
   const styles = {
@@ -112,12 +113,18 @@ export default function InvoiceDetail() {
   setSending(true)
   try {
     await sendInvoiceEmail({ invoice, profile })
-    alert(`Invoice sent to ${invoice.client_snapshot.email} ✓`)
+    toast.success(`Invoice sent to ${invoice.client_snapshot.email}`, {
+  description: 'Your client will receive it in their inbox shortly.',
+  duration: 5000,
+})
     if (invoice.status === 'draft') {
       await updateStatus('sent')
     }
   } catch (err) {
-    alert('Failed to send: ' + err.message)
+    toast.error('Failed to send invoice', {
+  description: err.message,
+  duration: 6000,
+})
   }
   setSending(false)
 }
