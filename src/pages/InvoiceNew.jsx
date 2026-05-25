@@ -278,81 +278,34 @@ export default function InvoiceNew() {
   </div>
 
   {/* Invoice Date + Currency */}
-  <div
-    style={{
-      display: 'flex',
-      gap: 12,
-      marginBottom: 12,
-      flexWrap: 'wrap',
-      width: '100%'
-    }}
-  >
-    <div
-      style={{
-       width: '100%'
-      }}
-    >
-      <FieldLabel>Invoice Date</FieldLabel>
+<div className="flex flex-col sm:flex-row gap-3 mb-3 w-full">
+  <div className="flex-1 min-w-0 w-full">
+    <FieldLabel>Invoice Date</FieldLabel>
+    <input
+      type="date"
+      value={form.invoiceDate}
+      onChange={e => setForm({ ...form, invoiceDate: e.target.value })}
+      className="inv-input w-full min-w-0 box-border max-w-full"
+      style={{ boxSizing: 'border-box' }}
+    />
+  </div>
 
-      <input
-        type="date"
-        value={form.invoiceDate}
-        onChange={e =>
-          setForm({ ...form, invoiceDate: e.target.value })
-        }
-        className="inv-input"
-        style={{
-          width: '100%',
-          boxSizing: 'border-box',
-        }}
-      />
-    </div>
-
-    <div
-      style={{
-        width: '100%'
-      }}
-    >
-      <FieldLabel>Currency</FieldLabel>
-
-      <div
-        style={{
-          position: 'relative',
-          width: '100%',
-        }}
+  <div className="flex-1 min-w-0 w-full">
+    <FieldLabel>Currency</FieldLabel>
+    <div className="relative w-full min-w-0">
+      <select
+        value={form.currency}
+        onChange={e => setForm({ ...form, currency: e.target.value })}
+        className="inv-input w-full min-w-0 box-border max-w-full appearance-none pr-7"
+        style={{ boxSizing: 'border-box' }}
       >
-        <select
-          value={form.currency}
-          onChange={e =>
-            setForm({ ...form, currency: e.target.value })
-          }
-          className="inv-input"
-          style={{
-            appearance: 'none',
-            paddingRight: 28,
-            width: '100%',
-            boxSizing: 'border-box',
-          }}
-        >
-          {CURRENCIES.map(c => (
-            <option key={c}>{c}</option>
-          ))}
-        </select>
-
-        <div
-          style={{
-            position: 'absolute',
-            right: 10,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            pointerEvents: 'none',
-          }}
-        >
-          <ChevronDown size={13} />
-        </div>
-      </div>
+        {CURRENCIES.map(c => (
+          <option key={c}>{c}</option>
+        ))}
+      </select>
     </div>
   </div>
+</div>
 
   {/* Payment Terms + Due Date */}
   <div
