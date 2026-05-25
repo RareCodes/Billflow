@@ -59,34 +59,233 @@ export function ClassicTemplate({ invoice, profile }) {
   return (
     <div style={{ background: 'white', fontFamily: 'Nunito Sans, sans-serif', color: '#0F1117' }}>
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '40px 48px 32px', borderBottom: '1px solid #E4E7EE' }}>
-        <div>
-          <div style={{ marginBottom: 12 }}>
-            <LogoOrInitial profile={profile} size={52} radius={12} />
-          </div>
-          <p style={{ fontWeight: 800, fontSize: 15, margin: '0 0 2px', fontFamily: 'Outfit, sans-serif' }}>{profile?.business_name || 'Your Business'}</p>
-          {profile?.business_email && <p style={{ fontSize: 12, color: '#5C6070', margin: '0 0 1px' }}>{profile.business_email}</p>}
-          {profile?.business_phone && <p style={{ fontSize: 12, color: '#5C6070', margin: '0 0 1px' }}>{profile.business_phone}</p>}
-          {profile?.business_address && <p style={{ fontSize: 12, color: '#5C6070', margin: 0 }}>{profile.business_address}</p>}
-        </div>
-        <div style={{ textAlign: 'right' }}>
-          <p style={{ fontSize: 32, fontWeight: 900, color, fontFamily: 'Outfit, sans-serif', margin: '0 0 6px', letterSpacing: '-0.02em' }}>INVOICE</p>
-          <p style={{ fontSize: 13, fontWeight: 700, color: '#0F1117', margin: '0 0 12px', fontFamily: 'IBM Plex Mono, monospace' }}>{invoice?.invoice_number}</p>
-          {[
-            { label: 'Invoice Date', value: invoice?.issued_date },
-            { label: 'Due Date', value: invoice?.due_date || '—' },
-            { label: 'Payment', value: invoice?.payment_method },
-          ].map(({ label, value }) => (
-            <div key={label} style={{ display: 'flex', justifyContent: 'flex-end', gap: 16, marginBottom: 3 }}>
-              <span style={{ fontSize: 11, color: '#5C6070' }}>{label}</span>
-              <span style={{ fontSize: 11, fontWeight: 600, width: 96, textAlign: 'left' }}>{value}</span>
-            </div>
-          ))}
-        </div>
+      <div
+  style={{
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems:
+      window.innerWidth < 768
+        ? 'flex-start'
+        : 'flex-start',
+    flexDirection:
+      window.innerWidth < 768
+        ? 'column'
+        : 'row',
+    gap: window.innerWidth < 768 ? 28 : 24,
+    padding:
+      window.innerWidth < 768
+        ? '24px 16px 20px'
+        : '16px 16px 16px',
+    borderBottom: '1px solid #E4E7EE',
+  }}
+>
+  {/* Left Side */}
+  <div
+    style={{
+      width: '100%',
+      minWidth: 0,
+    }}
+  >
+    <div
+      style={{
+        marginBottom: 12,
+      }}
+    >
+      <LogoOrInitial
+        profile={profile}
+        size={window.innerWidth < 480 ? 46 : 52}
+        radius={12}
+      />
+    </div>
+
+    <p
+      style={{
+        fontWeight: 800,
+        fontSize: 15,
+        margin: '0 0 4px',
+        fontFamily: 'Outfit, sans-serif',
+        color: '#0F1117',
+        wordBreak: 'break-word',
+      }}
+    >
+      {profile?.business_name || 'Your Business'}
+    </p>
+
+    {profile?.business_email && (
+      <p
+        style={{
+          fontSize: 12,
+          color: '#5C6070',
+          margin: '0 0 2px',
+          lineHeight: 1.5,
+          wordBreak: 'break-word',
+        }}
+      >
+        {profile.business_email}
+      </p>
+    )}
+
+    {profile?.business_phone && (
+      <p
+        style={{
+          fontSize: 12,
+          color: '#5C6070',
+          margin: '0 0 2px',
+          lineHeight: 1.5,
+        }}
+      >
+        {profile.business_phone}
+      </p>
+    )}
+
+    {profile?.business_address && (
+      <p
+        style={{
+          fontSize: 12,
+          color: '#5C6070',
+          margin: 0,
+          lineHeight: 1.5,
+          wordBreak: 'break-word',
+          maxWidth:
+            window.innerWidth < 768
+              ? '100%'
+              : 320,
+        }}
+      >
+        {profile.business_address}
+      </p>
+    )}
+  </div>
+
+  {/* Right Side */}
+  <div
+    style={{
+      width:
+        window.innerWidth < 768
+          ? '100%'
+          : 'auto',
+      minWidth:
+        window.innerWidth < 768
+          ? '100%'
+          : 240,
+      textAlign:
+        window.innerWidth < 768
+          ? 'left'
+          : 'right',
+      background:
+        window.innerWidth < 768
+          ? color + '08'
+          : 'transparent',
+      border:
+        window.innerWidth < 768
+          ? `1px solid ${color}15`
+          : 'none',
+      borderRadius:
+        window.innerWidth < 768 ? 18 : 0,
+      padding:
+        window.innerWidth < 768
+          ? '16px'
+          : 0,
+    }}
+  >
+    <p
+      style={{
+        fontSize:
+          window.innerWidth < 480
+            ? 26
+            : 32,
+        fontWeight: 900,
+        color,
+        fontFamily: 'Outfit, sans-serif',
+        margin: '0 0 6px',
+        letterSpacing: '-0.02em',
+        lineHeight: 1,
+      }}
+    >
+      INVOICE
+    </p>
+
+    <p
+      style={{
+        fontSize: 13,
+        fontWeight: 700,
+        color: '#0F1117',
+        margin: '0 0 14px',
+        fontFamily:
+          'IBM Plex Mono, monospace',
+        wordBreak: 'break-word',
+      }}
+    >
+      {invoice?.invoice_number}
+    </p>
+
+    {[
+      {
+        label: 'Invoice Date',
+        value: invoice?.issued_date,
+      },
+      {
+        label: 'Due Date',
+        value: invoice?.due_date || '—',
+      },
+      {
+        label: 'Payment',
+        value: invoice?.payment_method,
+      },
+    ].map(({ label, value }) => (
+      <div
+        key={label}
+        style={{
+          display: 'flex',
+          justifyContent:
+            'space-between',
+          alignItems: 'flex-start',
+          gap: 14,
+          marginBottom: 6,
+          paddingBottom:
+            window.innerWidth < 768
+              ? 6
+              : 0,
+          borderBottom:
+            window.innerWidth < 768
+              ? '1px solid #F3F1F8'
+              : 'none',
+        }}
+      >
+        <span
+          style={{
+            fontSize: 11,
+            color: '#5C6070',
+            whiteSpace: 'nowrap',
+            flexShrink: 0,
+          }}
+        >
+          {label}
+        </span>
+
+        <span
+          style={{
+            fontSize: 11,
+            fontWeight: 600,
+            textAlign: 'right',
+            color: '#0F1117',
+            fontFamily:
+              window.innerWidth < 768
+                ? 'IBM Plex Mono, monospace'
+                : 'inherit',
+            wordBreak: 'break-word',
+            lineHeight: 1.45,
+          }}
+        >
+          {value}
+        </span>
       </div>
+    ))}
+  </div>
+</div>
 
       {/* Bill To */}
-      <div style={{ padding: '24px 48px', borderBottom: '1px solid #E4E7EE' }}>
+      <div style={{ padding: '24px 16px', borderBottom: '1px solid #E4E7EE' }}>
         <p style={{ fontSize: 10, fontWeight: 800, color: '#9EA3B0', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 8 }}>Bill To</p>
         <p style={{ fontWeight: 800, fontSize: 15, margin: '0 0 3px' }}>{invoice?.client_snapshot?.name}</p>
         {invoice?.client_snapshot?.email && <p style={{ fontSize: 12, color: '#5C6070', margin: '0 0 2px' }}>{invoice.client_snapshot.email}</p>}
@@ -95,60 +294,417 @@ export function ClassicTemplate({ invoice, profile }) {
       </div>
 
       {/* Items */}
-      <div style={{ padding: '24px 48px', borderBottom: '1px solid #E4E7EE' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ background: color + '11' }}>
-              {['Item / Description', 'Qty', 'Rate', 'Amount'].map((h, i) => (
-                <th key={h} style={{ padding: '10px 12px', fontSize: 10, fontWeight: 800, color: '#9EA3B0', textTransform: 'uppercase', letterSpacing: '0.08em', textAlign: i === 0 ? 'left' : i === 1 ? 'center' : 'right' }}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {(invoice?.items || []).map((item, i) => (
-              <tr key={i} style={{ borderBottom: '1px solid #F0EEF8' }}>
-                <td style={{ padding: '12px', fontSize: 13, color: '#0F1117' }}>{item.description}</td>
-                <td style={{ padding: '12px', fontSize: 13, color: '#5C6070', textAlign: 'center' }}>{item.quantity}</td>
-                <td style={{ padding: '12px', fontSize: 13, color: '#5C6070', textAlign: 'right', fontFamily: 'IBM Plex Mono, monospace' }}>{sym}{fmt(item.unit_price)}</td>
-                <td style={{ padding: '12px', fontSize: 13, fontWeight: 700, textAlign: 'right', fontFamily: 'IBM Plex Mono, monospace' }}>{sym}{fmt(item.total)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {/* Items */}
+<div
+  style={{
+    padding: window.innerWidth < 768 ? '20px 16px' : '24px 48px',
+    borderBottom: '1px solid #E4E7EE',
+  }}
+>
+  <div
+    style={{
+      width: '100%',
+      overflowX: 'auto',
+      WebkitOverflowScrolling: 'touch',
+    }}
+  >
+    <table
+      style={{
+        width: '100%',
+        borderCollapse: 'collapse',
+        minWidth: window.innerWidth < 768 ? '100%' : 640,
+      }}
+    >
+      <thead>
+        <tr style={{ background: color + '11' }}>
+          <th
+            style={{
+              padding: window.innerWidth < 768 ? '10px 8px' : '10px 12px',
+              fontSize: 10,
+              fontWeight: 800,
+              color: '#9EA3B0',
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              textAlign: 'left',
+            }}
+          >
+            Item / Description
+          </th>
+
+          {/* Hide Qty on mobile */}
+          {window.innerWidth >= 768 && (
+            <th
+              style={{
+                padding: '10px 12px',
+                fontSize: 10,
+                fontWeight: 800,
+                color: '#9EA3B0',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                textAlign: 'center',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Qty
+            </th>
+          )}
+
+          {/* Hide Rate on mobile */}
+          {window.innerWidth >= 768 && (
+            <th
+              style={{
+                padding: '10px 12px',
+                fontSize: 10,
+                fontWeight: 800,
+                color: '#9EA3B0',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                textAlign: 'right',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Rate
+            </th>
+          )}
+
+          <th
+            style={{
+              padding: window.innerWidth < 768 ? '10px 8px' : '10px 12px',
+              fontSize: 10,
+              fontWeight: 800,
+              color: '#9EA3B0',
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              textAlign: 'right',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Amount
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {(invoice?.items || []).map((item, i) => (
+          <tr
+            key={i}
+            style={{
+              borderBottom: '1px solid #F0EEF8',
+            }}
+          >
+            {/* Description */}
+            <td
+              style={{
+                padding: window.innerWidth < 768 ? '14px 8px' : '12px',
+                fontSize: 13,
+                color: '#0F1117',
+                verticalAlign: 'top',
+              }}
+            >
+              <div
+                style={{
+                  fontWeight: 600,
+                  lineHeight: 1.45,
+                  wordBreak: 'break-word',
+                }}
+              >
+                {item.description}
+              </div>
+
+              {/* Mobile-only metadata */}
+              {window.innerWidth < 768 && (
+                <div
+                  style={{
+                    marginTop: 6,
+                    display: 'flex',
+                    gap: 10,
+                    flexWrap: 'wrap',
+                    fontSize: 11,
+                    color: '#7B8190',
+                    fontFamily: 'IBM Plex Mono, monospace',
+                  }}
+                >
+                  <span>Qty: {item.quantity}</span>
+                  <span>
+                    Rate: {sym}
+                    {fmt(item.unit_price)}
+                  </span>
+                </div>
+              )}
+            </td>
+
+            {/* Desktop Qty */}
+            {window.innerWidth >= 768 && (
+              <td
+                style={{
+                  padding: '12px',
+                  fontSize: 13,
+                  color: '#5C6070',
+                  textAlign: 'center',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {item.quantity}
+              </td>
+            )}
+
+            {/* Desktop Rate */}
+            {window.innerWidth >= 768 && (
+              <td
+                style={{
+                  padding: '12px',
+                  fontSize: 13,
+                  color: '#5C6070',
+                  textAlign: 'right',
+                  fontFamily: 'IBM Plex Mono, monospace',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {sym}
+                {fmt(item.unit_price)}
+              </td>
+            )}
+
+            {/* Amount */}
+            <td
+              style={{
+                padding: window.innerWidth < 768 ? '14px 8px' : '12px',
+                fontSize: 13,
+                fontWeight: 700,
+                textAlign: 'right',
+                fontFamily: 'IBM Plex Mono, monospace',
+                whiteSpace: 'nowrap',
+                verticalAlign: 'top',
+              }}
+            >
+              {sym}
+              {fmt(item.total)}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
 
       {/* Totals + Notes */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, padding: '24px 48px 32px' }}>
-        <div>
-          {invoice?.notes && (
-            <div style={{ marginBottom: 12 }}>
-              <p style={{ fontSize: 10, fontWeight: 800, color: '#9EA3B0', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6 }}>Notes</p>
-              <p style={{ fontSize: 12, color: '#5C6070', lineHeight: 1.6, margin: 0 }}>{invoice.notes}</p>
-            </div>
-          )}
-          <BankDetails profile={profile} />
-          <p style={{ fontSize: 11, color: '#9EA3B0', margin: '12px 0 0' }}>Thank you for your business.</p>
-        </div>
-        <div>
-          {[
-            { label: 'Subtotal', value: fmt(invoice?.subtotal || 0), show: true },
-            { label: `Tax (${invoice?.tax_rate}%)`, value: fmt(invoice?.tax_amount || 0), show: invoice?.tax_rate > 0 },
-            { label: 'Discount', value: `− ${sym}${fmt(invoice?.discount || 0)}`, show: invoice?.discount > 0, red: true },
-          ].filter(r => r.show).map(({ label, value, red }) => (
-            <div key={label} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-              <span style={{ fontSize: 13, color: '#5C6070' }}>{label}</span>
-              <span style={{ fontSize: 13, fontWeight: 600, color: red ? '#DC2626' : '#0F1117', fontFamily: 'IBM Plex Mono, monospace' }}>{red ? value : `${sym}${value}`}</span>
-            </div>
-          ))}
-          <div style={{ borderTop: `2px solid ${color}`, paddingTop: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8 }}>
-            <span style={{ fontWeight: 800, fontSize: 15 }}>Total</span>
-            <span style={{ fontWeight: 900, fontSize: 22, color, fontFamily: 'IBM Plex Mono, monospace' }}>{sym}{fmt(invoice?.total || 0)}</span>
-          </div>
-        </div>
+      <div
+  style={{
+    display: 'grid',
+    gridTemplateColumns:
+      window.innerWidth < 768
+        ? '1fr'
+        : 'minmax(0,1fr) minmax(320px,420px)',
+    gap: window.innerWidth < 768 ? 24 : 32,
+    padding:
+      window.innerWidth < 768
+        ? '24px 16px 28px'
+        : '24px 48px 32px',
+    alignItems: 'start',
+  }}
+>
+  {/* Left Side */}
+  <div
+    style={{
+      minWidth: 0,
+      order: window.innerWidth < 768 ? 2 : 1,
+    }}
+  >
+    {invoice?.notes && (
+      <div
+        style={{
+          marginBottom: 16,
+          paddingBottom: 14,
+          borderBottom:
+            window.innerWidth < 768
+              ? '1px solid #F0EEF8'
+              : 'none',
+        }}
+      >
+        <p
+          style={{
+            fontSize: 10,
+            fontWeight: 800,
+            color: '#9EA3B0',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+            marginBottom: 8,
+          }}
+        >
+          Notes
+        </p>
+
+        <p
+          style={{
+            fontSize: 12,
+            color: '#5C6070',
+            lineHeight: 1.7,
+            margin: 0,
+            wordBreak: 'break-word',
+          }}
+        >
+          {invoice.notes}
+        </p>
       </div>
+    )}
+
+    <div
+      style={{
+        overflow: 'hidden',
+      }}
+    >
+      <BankDetails profile={profile} />
+    </div>
+
+    {/* Hide thank you text on very small screens */}
+    {window.innerWidth > 480 && (
+      <p
+        style={{
+          fontSize: 11,
+          color: '#9EA3B0',
+          margin: '14px 0 0',
+        }}
+      >
+        Thank you for your business.
+      </p>
+    )}
+  </div>
+
+  {/* Right Side - Totals */}
+  <div
+    style={{
+      minWidth: 0,
+      width: '100%',
+      maxWidth:
+        window.innerWidth < 768 ? '100%' : 420,
+      marginLeft:
+        window.innerWidth < 768 ? 0 : 'auto',
+      order: window.innerWidth < 768 ? 1 : 2,
+    }}
+  >
+    <div
+      style={{
+        background:
+          window.innerWidth < 768
+            ? '#FAF9FC'
+            : 'transparent',
+        border:
+          window.innerWidth < 768
+            ? '1px solid #F0EEF8'
+            : 'none',
+        borderRadius:
+          window.innerWidth < 768 ? 18 : 0,
+        padding:
+          window.innerWidth < 768
+            ? '18px 16px'
+            : 0,
+      }}
+    >
+      {[
+        {
+          label: 'Subtotal',
+          value: fmt(invoice?.subtotal || 0),
+          show: true,
+        },
+        {
+          label: `Tax (${invoice?.tax_rate}%)`,
+          value: fmt(invoice?.tax_amount || 0),
+          show: invoice?.tax_rate > 0,
+        },
+        {
+          label: 'Discount',
+          value: `− ${sym}${fmt(invoice?.discount || 0)}`,
+          show: invoice?.discount > 0,
+          red: true,
+        },
+      ]
+        .filter(r => r.show)
+        .map(({ label, value, red }) => (
+          <div
+            key={label}
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              gap: 16,
+              marginBottom: 10,
+            }}
+          >
+            <span
+              style={{
+                fontSize: 13,
+                color: '#5C6070',
+                lineHeight: 1.4,
+              }}
+            >
+              {label}
+            </span>
+
+            <span
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: red ? '#DC2626' : '#0F1117',
+                fontFamily:
+                  'IBM Plex Mono, monospace',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
+              }}
+            >
+              {red ? value : `${sym}${value}`}
+            </span>
+          </div>
+        ))}
+
+      <div
+        style={{
+          borderTop: `2px solid ${color}`,
+          paddingTop: 12,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems:
+            window.innerWidth < 480
+              ? 'flex-start'
+              : 'center',
+          gap: 12,
+          marginTop: 10,
+          flexWrap: 'wrap',
+        }}
+      >
+        <span
+          style={{
+            fontWeight: 800,
+            fontSize: 15,
+            color: '#0F1117',
+          }}
+        >
+          Total
+        </span>
+
+        <span
+          style={{
+            fontWeight: 900,
+            fontSize:
+              window.innerWidth < 480
+                ? 20
+                : 22,
+            color,
+            fontFamily:
+              'IBM Plex Mono, monospace',
+            lineHeight: 1.2,
+            wordBreak: 'break-word',
+          }}
+        >
+          {sym}
+          {fmt(invoice?.total || 0)}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 
       {/* Footer */}
-      <div style={{ padding: '12px 48px', background: color + '0A', borderTop: '1px solid #E4E7EE', display: 'flex', justifyContent: 'space-between' }}>
+      <div style={{ padding: '12px 16px', background: color + '0A', borderTop: '1px solid #E4E7EE', display: 'flex', justifyContent: 'space-between' }}>
         <p style={{ fontSize: 11, color: '#9EA3B0', margin: 0, fontFamily: 'IBM Plex Mono, monospace' }}>{invoice?.invoice_number}</p>
         <p style={{ fontSize: 11, color: '#9EA3B0', margin: 0 }}>Generated by Billit</p>
       </div>
