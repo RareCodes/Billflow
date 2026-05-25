@@ -178,7 +178,7 @@ export default function Auth() {
     } else {
       const { error } = await supabase.auth.signUp({ email, password })
       if (error) setError(getFriendly(error.message))
-      else setMessage("Account created! Check your email to confirm, then log in.")
+      else setMessage("Account created! Go ahead and log in.")
     }
     setLoading(false)
   }
