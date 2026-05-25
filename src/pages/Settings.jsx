@@ -107,13 +107,13 @@ export default function Settings() {
   return (
     <AppLayout>
       {/* Header */}
-      <div className="flex items-center justify-between mb-6 mt-8 lg:mt-0">
+      <div className="flex flex-col justify-start lg:flex-row lg:items-center lg:justify-between mb-6 mt-8 lg:mt-0">
         <div>
           <h1 className="text-xl font-bold text-ink" style={{ fontFamily: 'Outfit, sans-serif' }}>Settings</h1>
           <p className="text-sm text-ink-secondary mt-0.5">Manage your business profile and invoice preferences</p>
         </div>
         <button onClick={saveProfile} disabled={saving}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
+          className="flex items-center w-fit lg:mt-0 mt-4 gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
           style={{ background: saved ? '#16A34A' : '#6D28D9' }}>
           {saved ? <Check size={14} /> : <Save size={14} />}
           {saving ? 'Saving...' : saved ? 'Saved!' : 'Save Changes'}

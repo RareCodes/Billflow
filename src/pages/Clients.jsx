@@ -82,14 +82,14 @@ export default function Clients() {
               <input value={form.address} onChange={e => setForm({ ...form, address: e.target.value })} placeholder="Client address" className={inputCls} />
             </div>
           </div>
-          <div className="flex gap-3">
+          <div className="flex w-full gap-3">
             <button onClick={saveClient} disabled={saving}
-              className="px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
+              className="px-4 w-full lg:w-[200px] py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
               style={{ background: '#6D28D9' }}>
               {saving ? 'Saving...' : 'Save Client'}
             </button>
             <button onClick={() => setShowForm(false)}
-              className="px-4 py-2 rounded-lg text-sm font-medium text-ink-secondary hover:text-ink transition-colors">
+              className="px-4 w-full lg:w-[200px] border py-2 rounded-lg text-sm font-medium text-ink-secondary hover:text-ink transition-colors">
               Cancel
             </button>
           </div>
@@ -111,7 +111,7 @@ export default function Clients() {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {clients.map(client => (
             <div key={client.id} className="bg-white border border-[##EDE9FE] rounded-xl p-5 hover:border-[#6D28D930] hover:shadow-sm transition-all group">
               <div className="flex items-start justify-between mb-3">

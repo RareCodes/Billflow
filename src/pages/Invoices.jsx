@@ -6,10 +6,10 @@ import { supabase } from '../lib/supabase'
 
 function StatusBadge({ status }) {
   const styles = {
-    draft:   { bg: '#F3F4F6', color: '#6B7280' },
-    sent:    { bg: '#EFF6FF', color: '#2563EB' },
-    paid:    { bg: '#F0FDF4', color: '#16A34A' },
-    overdue: { bg: '#FEF2F2', color: '#DC2626' },
+    draft:   { bg: '#FFFFFF', color: '#6B7280' },
+    sent:    { bg: '#FFFFFF', color: '#2563EB' },
+    paid:    { bg: '#FFFFFF', color: '#16A34A' },
+    overdue: { bg: '#FFFFFF', color: '#DC2626' },
   }
   const s = styles[status] || styles.draft
   return (
@@ -139,13 +139,13 @@ export default function Invoices() {
                 onClick={() => navigate(`/invoices/${inv.id}`)}
                 className="grid grid-cols-5 px-6 py-4 border-b border-[#E4E7EE] last:border-0 hover:bg-bg cursor-pointer transition-colors items-center"
               >
-                <p className="text-sm font-medium text-ink" style={{ fontFamily: 'DM Mono, monospace' }}>
+                <p className="text-[12px] font-regular text-ink" style={{ fontFamily: 'DM Mono, monospace' }}>
                   {inv.invoice_number}
                 </p>
-                <p className="text-sm text-ink-secondary">{inv.client_snapshot?.name || '—'}</p>
-                <p className="text-sm text-ink-secondary">{inv.issued_date || '—'}</p>
+                <p className="text-[12px] text-ink-secondary">{inv.client_snapshot?.name || '—'}</p>
+                <p className="text-[12px] text-ink-secondary">{inv.issued_date || '—'}</p>
                 <StatusBadge status={inv.status} />
-                <p className="text-sm font-semibold text-ink" style={{ fontFamily: 'DM Mono, monospace' }}>
+                <p className="text-[14px] font-semibold text-ink" style={{ fontFamily: 'DM Mono, monospace' }}>
                   {fmt(inv.total)}
                 </p>
               </div>

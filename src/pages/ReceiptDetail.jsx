@@ -30,21 +30,84 @@ export default function ReceiptDetail() {
     setLoading(false)
   }
 
-  const downloadPDF = async () => {
+const downloadPDF = async () => {
+  try {
     setDownloading(true)
-    const canvas = await html2canvas(printRef.current, {
-      scale: 2,
+
+    const element = printRef.current
+
+    const canvas = await html2canvas(element, {
+      scale: 3,
       useCORS: true,
-      backgroundColor: '#ffffff',
+      backgroundColor: "#ffffff",
+      scrollY: -window.scrollY,
+      windowWidth: element.scrollWidth,
+      windowHeight: element.scrollHeight,
     })
-    const imgData = canvas.toDataURL('image/png')
-    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
+
+    const imgData = canvas.toDataURL("image/png")
+
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      unit: "mm",
+      format: "a4"
+    })
+
     const pageWidth = pdf.internal.pageSize.getWidth()
-    const pageHeight = (canvas.height * pageWidth) / canvas.width
-    pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight)
-    pdf.save(`${receipt.receipt_number}.pdf`)
+    const pageHeight = pdf.internal.pageSize.getHeight()
+
+    const imgWidth = pageWidth
+
+    const imgHeight =
+      (canvas.height * imgWidth) /
+      canvas.width
+
+    let heightLeft = imgHeight
+    let position = 0
+
+    // First page
+    pdf.addImage(
+      imgData,
+      "PNG",
+      0,
+      position,
+      imgWidth,
+      imgHeight
+    )
+
+    heightLeft -= pageHeight
+
+    // Additional pages if content is long
+    while (heightLeft > 0) {
+      position = heightLeft - imgHeight
+
+      pdf.addPage()
+
+      pdf.addImage(
+        imgData,
+        "PNG",
+        0,
+        position,
+        imgWidth,
+        imgHeight
+      )
+
+      heightLeft -= pageHeight
+    }
+
+    pdf.save(
+      `${receipt.receipt_number}.pdf`
+    )
+
+  } catch (error) {
+    console.error(
+      "PDF generation failed:",
+      error
+    )
+  } finally {
     setDownloading(false)
   }
+}
 
   const fmt = (n) => Number(n).toLocaleString('en-NG', { minimumFractionDigits: 2 })
 
@@ -73,221 +136,482 @@ export default function ReceiptDetail() {
   return (
     <div className="min-h-screen bg-bg">
       {/* Toolbar */}
-      <div className="bg-white border-b border-[#E4E7EE] sticky top-0 z-20">
-        <div className="max-w-3xl mx-auto px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => navigate('/receipts')}
-              className="flex items-center gap-1.5 text-sm text-ink-secondary hover:text-ink transition-colors"
-            >
-              <ArrowLeft size={16} />
-              Receipts
-            </button>
-            <span className="text-[#E4E7EE]">|</span>
-            <span className="text-sm font-semibold text-ink">{receipt.receipt_number}</span>
-            <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-green-50 text-green-700">
-              Paid
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => window.print()}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border border-[##EDE9FE] bg-white text-ink hover:bg-bg transition-all"
-            >
-              <Printer size={14} />
-              Print
-            </button>
-            <button
-              onClick={downloadPDF}
-              disabled={downloading}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
-              style={{ background: '#16A34A' }}
-            >
-              <Download size={14} />
-              {downloading ? 'Generating...' : 'Download PDF'}
-            </button>
-          </div>
-        </div>
+     <div className="bg-white border-b border-[#E4E7EE] sticky top-0 z-20">
+  <div className="max-w-3xl mx-auto px-4 sm:px-6 py-3">
+
+    <div className="flex flex-row items-center justify-between gap-4">
+
+      {/* Left section */}
+      <div className="flex flex-wrap items-center gap-2 sm:gap-4 min-w-0">
+
+        <button
+          onClick={() => navigate('/receipts')}
+          className="flex items-center gap-1.5 text-sm text-ink-secondary hover:text-ink transition-colors"
+        >
+          <ArrowLeft size={16} />
+
+          <span className="hidden sm:inline">
+            Receipts
+          </span>
+        </button>
+
+        <span className="hidden sm:block text-[#E4E7EE]">
+          |
+        </span>
+
+        <span className="text-sm font-semibold text-ink truncate">
+          {receipt.receipt_number}
+        </span>
+
+        <span className="
+          px-2.5
+          py-1
+          rounded-full
+          text-xs
+          font-bold
+          bg-green-50
+          text-green-700
+          whitespace-nowrap
+        ">
+          Paid
+        </span>
+
       </div>
+
+
+      {/* Right section */}
+      <div className="
+        flex
+        items-center
+        gap-2
+        overflow-x-auto
+        pb-1
+      ">
+
+        <button
+          onClick={() => window.print()}
+          className="
+            flex-shrink-0
+            flex items-center gap-2
+            px-3 py-2
+            rounded-lg
+            text-sm
+            font-semibold
+            border border-[#EDE9FE]
+            bg-white
+            text-ink
+            hover:bg-bg
+            transition-all
+          "
+        >
+          <Printer size={14} />
+
+          <span className="hidden sm:inline">
+            Print
+          </span>
+
+        </button>
+
+        <button
+          onClick={downloadPDF}
+          disabled={downloading}
+          className="
+            flex-shrink-0
+            flex items-center gap-2
+            px-3 py-2
+            rounded-lg
+            text-sm
+            font-semibold
+            text-white
+            hover:opacity-90
+            transition-all
+          "
+          style={{ background:'#16A34A' }}
+        >
+          <Download size={14} />
+
+          <span className="hidden sm:inline">
+            {downloading
+              ? 'Generating...'
+              : 'Download PDF'}
+          </span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
 
       {/* Receipt Document */}
-      <div className="max-w-3xl mx-auto px-6 py-8">
-        <div
-          ref={printRef}
-          className="bg-white border border-[##EDE9FE] rounded-xl overflow-hidden shadow-sm"
-        >
-          {/* Green paid header bar */}
-          <div className="h-2 w-full" style={{ background: 'linear-gradient(90deg, #16A34A, #22C55E)' }} />
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-5 sm:py-8">
+  <div
+    ref={printRef}
+    className="bg-white border border-[#EDE9FE] rounded-xl overflow-hidden shadow-sm"
+  >
 
-          {/* Header */}
-          <div className="grid grid-cols-2 gap-8 px-10 pt-8 pb-6 border-b border-[#E4E7EE]">
-            {/* Business */}
-            <div>
-              <div className="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center mb-3">
-                <span className="text-base font-bold text-green-700" style={{ fontFamily: 'Sora, sans-serif' }}>
-                  {profile?.business_name?.[0]?.toUpperCase() || 'B'}
-                </span>
-              </div>
-              <p className="font-bold text-ink" style={{ fontFamily: 'Sora, sans-serif' }}>
-                {profile?.business_name || 'Your Business'}
-              </p>
-              {profile?.business_email && (
-                <p className="text-xs text-ink-secondary mt-0.5">{profile.business_email}</p>
-              )}
-              {profile?.business_address && (
-                <p className="text-xs text-ink-secondary mt-0.5">{profile.business_address}</p>
-              )}
-              {profile?.business_phone && (
-                <p className="text-xs text-ink-secondary mt-0.5">{profile.business_phone}</p>
-              )}
-            </div>
+    {/* Paid bar */}
+    <div
+      className="h-2 w-full"
+      style={{
+        background:
+          'linear-gradient(90deg,#16A34A,#22C55E)'
+      }}
+    />
 
-            {/* Receipt Meta */}
-            <div className="text-right">
-              <p className="text-3xl font-bold mb-1" style={{ fontFamily: 'Sora, sans-serif', color: '#16A34A' }}>
-                RECEIPT
-              </p>
-              <p className="text-sm font-bold text-ink" style={{ fontFamily: 'DM Mono, monospace' }}>
-                {receipt.receipt_number}
-              </p>
-              <div className="mt-3 space-y-1.5">
-                <div className="flex justify-end gap-8 text-xs">
-                  <span className="text-ink-secondary">Date Paid</span>
-                  <span className="font-medium text-ink w-28 text-left">
-                    {new Date(receipt.paid_at).toLocaleDateString('en-NG', {
-                      year: 'numeric', month: 'long', day: 'numeric'
-                    })}
-                  </span>
-                </div>
-                <div className="flex justify-end gap-8 text-xs">
-                  <span className="text-ink-secondary">Invoice Ref</span>
-                  <span className="font-medium text-ink w-28 text-left" style={{ fontFamily: 'DM Mono, monospace' }}>
-                    {inv?.invoice_number || '—'}
-                  </span>
-                </div>
-                {inv?.payment_method && (
-                  <div className="flex justify-end gap-8 text-xs">
-                    <span className="text-ink-secondary">Payment Via</span>
-                    <span className="font-medium text-ink w-28 text-left">{inv.payment_method}</span>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+    {/* Header */}
+    <div className="
+      grid
+      grid-cols-1
+      sm:grid-cols-2
+      gap-6
+      px-4 sm:px-10
+      pt-6
+      sm:pt-8
+      pb-6
+      border-b
+      border-[#E4E7EE]
+    ">
 
-          {/* Received From */}
-          <div className="px-10 py-5 border-b border-[#E4E7EE]">
-            <p className="text-[10px] font-bold text-ink-muted uppercase tracking-wider mb-2">
-              Received From
-            </p>
-            <p className="font-bold text-ink">{inv?.client_snapshot?.name || '—'}</p>
-            {inv?.client_snapshot?.email && (
-              <p className="text-sm text-ink-secondary mt-0.5">{inv.client_snapshot.email}</p>
-            )}
-            {inv?.client_snapshot?.phone && (
-              <p className="text-sm text-ink-secondary mt-0.5">{inv.client_snapshot.phone}</p>
-            )}
-            {inv?.client_snapshot?.address && (
-              <p className="text-sm text-ink-secondary mt-0.5">{inv.client_snapshot.address}</p>
-            )}
-          </div>
+      {/* Business */}
+      <div>
 
-          {/* Line Items */}
-          <div className="px-10 py-6 border-b border-[#E4E7EE]">
-            <table className="w-full">
-              <thead>
-                <tr style={{ background: '#F0FDF4' }}>
-                  <th className="text-left px-4 py-3 text-[10px] font-bold text-green-700 uppercase tracking-wider rounded-l-lg">
-                    Description
-                  </th>
-                  <th className="text-center px-4 py-3 text-[10px] font-bold text-green-700 uppercase tracking-wider">
-                    Qty
-                  </th>
-                  <th className="text-right px-4 py-3 text-[10px] font-bold text-green-700 uppercase tracking-wider">
-                    Rate
-                  </th>
-                  <th className="text-right px-4 py-3 text-[10px] font-bold text-green-700 uppercase tracking-wider rounded-r-lg">
-                    Amount
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {(inv?.items || []).map((item, i) => (
-                  <tr key={i} className="border-b border-[#F5F6FA]">
-                    <td className="px-4 py-3 text-sm text-ink">{item.description}</td>
-                    <td className="px-4 py-3 text-sm text-ink-secondary text-center">{item.quantity}</td>
-                    <td className="px-4 py-3 text-sm text-ink-secondary text-right" style={{ fontFamily: 'DM Mono, monospace' }}>
-                      {currencySymbol}{fmt(item.unit_price)}
-                    </td>
-                    <td className="px-4 py-3 text-sm font-semibold text-ink text-right" style={{ fontFamily: 'DM Mono, monospace' }}>
-                      {currencySymbol}{fmt(item.total)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Totals */}
-          <div className="grid grid-cols-2 gap-8 px-10 py-8">
-            {/* Left — Notes */}
-            <div className="flex flex-col justify-between">
-              {inv?.notes && (
-                <div>
-                  <p className="text-[10px] font-bold text-ink-muted uppercase tracking-wider mb-1.5">Notes</p>
-                  <p className="text-sm text-ink-secondary leading-relaxed">{inv.notes}</p>
-                </div>
-              )}
-              <div className="flex items-center gap-2 mt-4">
-                <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
-                  <CheckCircle size={12} className="text-green-600" />
-                </div>
-                <p className="text-xs font-semibold text-green-700">Payment Confirmed</p>
-              </div>
-            </div>
-
-            {/* Right — Amounts */}
-            <div className="space-y-2.5">
-              <div className="flex justify-between text-sm">
-                <span className="text-ink-secondary">Subtotal</span>
-                <span className="font-medium text-ink" style={{ fontFamily: 'DM Mono, monospace' }}>
-                  {currencySymbol}{fmt(inv?.subtotal || 0)}
-                </span>
-              </div>
-              {inv?.tax_amount > 0 && (
-                <div className="flex justify-between text-sm">
-                  <span className="text-ink-secondary">Tax ({inv.tax_rate}%)</span>
-                  <span className="font-medium text-ink" style={{ fontFamily: 'DM Mono, monospace' }}>
-                    {currencySymbol}{fmt(inv.tax_amount)}
-                  </span>
-                </div>
-              )}
-              {inv?.discount > 0 && (
-                <div className="flex justify-between text-sm">
-                  <span className="text-ink-secondary">Discount</span>
-                  <span className="font-medium text-red-500" style={{ fontFamily: 'DM Mono, monospace' }}>
-                    − {currencySymbol}{fmt(inv.discount)}
-                  </span>
-                </div>
-              )}
-              <div className="border-t-2 border-[#16A34A] pt-3 flex justify-between items-center">
-                <span className="font-bold text-ink">Total Paid</span>
-                <span className="font-bold text-2xl" style={{ fontFamily: 'DM Mono, monospace', color: '#16A34A' }}>
-                  {currencySymbol}{fmt(inv?.total || 0)}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="px-10 py-4 border-t border-[#E4E7EE] bg-green-50 flex items-center justify-between">
-            <p className="text-xs text-green-700 font-medium">
-              Thank you for your payment. This is your official receipt.
-            </p>
-            <p className="text-xs text-ink-muted">Generated by Billit</p>
-          </div>
+        <div className="
+          w-12 h-12
+          rounded-xl
+          bg-green-50
+          flex items-center justify-center
+          mb-3
+        ">
+          <span
+            className="text-base font-bold text-green-700"
+            style={{fontFamily:'Sora,sans-serif'}}
+          >
+            {profile?.business_name?.[0]?.toUpperCase() || 'B'}
+          </span>
         </div>
+
+        <p
+          className="font-bold text-ink"
+          style={{fontFamily:'Sora,sans-serif'}}
+        >
+          {profile?.business_name || 'Your Business'}
+        </p>
+
+        {profile?.business_email && (
+          <p className="text-xs text-ink-secondary mt-1">
+            {profile.business_email}
+          </p>
+        )}
+
+        {profile?.business_address && (
+          <p className="text-xs text-ink-secondary mt-1">
+            {profile.business_address}
+          </p>
+        )}
+
+        {profile?.business_phone && (
+          <p className="text-xs text-ink-secondary mt-1">
+            {profile.business_phone}
+          </p>
+        )}
+
       </div>
+
+
+      {/* Receipt metadata */}
+      <div className="sm:text-right">
+
+        <p
+          className="
+          text-2xl
+          sm:text-3xl
+          font-bold
+          text-green-600
+          "
+          style={{fontFamily:'Sora,sans-serif'}}
+        >
+          RECEIPT
+        </p>
+
+        <p
+          className="text-sm font-bold"
+          style={{fontFamily:'DM Mono'}}
+        >
+          {receipt.receipt_number}
+        </p>
+
+        <div className="
+          mt-4
+          space-y-2
+        ">
+
+          <div className="
+            flex
+            justify-between
+            sm:justify-end
+            sm:gap-8
+            text-xs
+          ">
+            <span className="text-ink-secondary">
+              Date Paid
+            </span>
+
+            <span className="font-medium">
+              {new Date(receipt.paid_at)
+              .toLocaleDateString('en-NG',{
+                year:'numeric',
+                month:'long',
+                day:'numeric'
+              })}
+            </span>
+
+          </div>
+
+
+          <div className="
+            flex
+            justify-between
+            sm:justify-end
+            sm:gap-8
+            text-xs
+          ">
+
+            <span className="text-ink-secondary">
+              Invoice Ref
+            </span>
+
+            <span
+              style={{
+                fontFamily:'DM Mono'
+              }}
+            >
+              {inv?.invoice_number || '—'}
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    {/* Client */}
+    <div className="
+      px-4 sm:px-10
+      py-5
+      border-b
+      border-[#E4E7EE]
+    ">
+
+      <p className="
+        text-[10px]
+        font-bold
+        uppercase
+        tracking-wider
+        mb-2
+      ">
+        Received From
+      </p>
+
+      <p className="font-bold">
+        {inv?.client_snapshot?.name || '—'}
+      </p>
+
+      {inv?.client_snapshot?.email && (
+        <p className="text-sm text-ink-secondary">
+          {inv.client_snapshot.email}
+        </p>
+      )}
+
+    </div>
+
+
+    {/* Responsive table */}
+    <div className="
+      px-4 sm:px-10
+      py-6
+      border-b
+      border-[#E4E7EE]
+      overflow-x-auto
+    ">
+
+      <table className="min-w-[300px] w-full">
+
+        <thead>
+          <tr className="bg-[#F0FDF4] gap-8">
+
+            <th className="
+            text-left
+            px-2 py-3
+            text-[10px]
+            uppercase
+            ">
+              Description
+            </th>
+
+            <th className="
+            text-left
+            px-0 py-3
+            text-[10px]
+            uppercase
+            ">Qty</th>
+
+            <th className="
+            text-left
+            pl-8 py-3
+            text-[10px]
+            uppercase
+            ">
+              Rate
+            </th>
+
+            <th className="
+            text-left
+            px-0 py-3
+            text-[10px]
+            uppercase
+            ">
+              Amount
+            </th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+
+          {(inv?.items || []).map((item,i)=>(
+            <tr
+              key={i}
+              className="border-b"
+            >
+              <td className="px-2 py-3 text-sm">
+                {item.description}
+              </td>
+
+              <td className="text-left text-sm">
+                {item.quantity}
+              </td>
+
+              <td className="text-left pl-8 text-sm">
+                {currencySymbol}
+                {fmt(item.unit_price)}
+              </td>
+
+              <td className="
+                text-left
+                text-sm
+              ">
+                {currencySymbol}
+                {fmt(item.total)}
+              </td>
+
+            </tr>
+          ))}
+
+        </tbody>
+      </table>
+
+    </div>
+
+
+    {/* Totals */}
+    <div className="
+      grid
+      grid-cols-1
+      sm:grid-cols-2
+      gap-8
+      px-4 sm:px-10
+      py-6 sm:py-8
+    ">
+
+      <div>
+        {inv?.notes && (
+          <>
+            <p className="
+            text-[10px]
+            uppercase
+            font-bold
+            mb-2
+            ">
+              Notes
+            </p>
+
+            <p className="
+            text-sm
+            text-ink-secondary
+            ">
+              {inv.notes}
+            </p>
+          </>
+        )}
+      </div>
+
+
+      <div className="space-y-2">
+
+        <div className="
+          border-t-2
+          border-[#16A34A]
+          pt-3
+          flex
+          justify-between
+        ">
+          <span className="font-bold">
+            Total Paid
+          </span>
+
+          <span className="
+          text-xl
+          sm:text-2xl
+          font-bold
+          text-green-600
+          ">
+            {currencySymbol}
+            {fmt(inv?.total || 0)}
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    {/* Footer */}
+    <div className="
+      px-4 sm:px-10
+      py-4
+      bg-green-50
+      border-t
+      border-[#E4E7EE]
+
+      flex
+      flex-col
+      sm:flex-row
+      gap-2
+      sm:justify-between
+    ">
+
+      <p className="
+      text-xs
+      text-green-700
+      ">
+        Thank you for your payment.
+      </p>
+
+      <p className="text-xs">
+        Generated by Billit
+      </p>
+
+    </div>
+
+  </div>
+</div>
     </div>
   )
 }

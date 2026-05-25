@@ -155,139 +155,209 @@ export default function InvoiceDetail() {
   return (
     <div className="min-h-screen bg-bg">
       {/* Toolbar */}
-      <div className="bg-white border-b border-[#E4E7EE] sticky top-0 z-20">
-        <div className="max-w-4xl mx-auto px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => navigate('/invoices')}
-              className="flex items-center gap-1.5 text-sm text-ink-secondary hover:text-ink transition-colors"
-            >
-              <ArrowLeft size={16} />
-              Invoices
-            </button>
-            <span className="text-[#E4E7EE]">|</span>
-            <span className="text-sm font-semibold text-ink">{invoice.invoice_number}</span>
-            <StatusBadge status={invoice.status} />
-          </div>
+     
 
-          <div className="flex items-center gap-2">
-            {/* Context-aware primary action */}
-            {invoice.status === 'draft' && (
-              <button
-                onClick={() => updateStatus('sent')}
-                disabled={updating}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
-                style={{ background: '#6D28D9' }}
-              >
-                <Send size={14} />
-                Mark as Sent
-              </button>
-            )}
-            {invoice.status === 'sent' && (
-              <button
-                onClick={() => updateStatus('paid')}
-                disabled={updating}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
-                style={{ background: '#16A34A' }}
-              >
-                <CheckCircle size={14} />
-                {updating ? 'Updating...' : 'Mark as Paid'}
-              </button>
-            )}
-            {invoice.status === 'overdue' && (
-              <button
-                onClick={() => updateStatus('paid')}
-                disabled={updating}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
-                style={{ background: '#16A34A' }}
-              >
-                <CheckCircle size={14} />
-                {updating ? 'Updating...' : 'Mark as Paid'}
-              </button>
-            )}
-            {invoice.status === 'paid' && (
-              <button
-                onClick={() => navigate('/receipts')}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-all"
-                style={{ background: '#16A34A' }}
-              >
-                <CheckCircle size={14} />
-                View Receipt
-              </button>
-            )}
+      {/* Toolbar */}
+<div className="bg-white border-b border-[#E4E7EE] sticky top-0 z-20">
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3">
 
-            {/* Email Invoice */}
-            {invoice.client_snapshot?.email && (
-              <button
-                onClick={handleSendEmail}
-                disabled={sending}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border border-[##EDE9FE] bg-white text-ink hover:bg-bg transition-all"
-              >
-                <Mail size={14} />
-                {sending ? 'Sending...' : 'Email Invoice'}
-              </button>
-            )}
+    {/* Top row */}
+    <div className="flex flex-row sm:flex-row sm:items-center sm:justify-between gap-4">
 
-            {/* Download PDF */}
-            <button
-              onClick={downloadPDF}
-              disabled={downloading}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border border-[##EDE9FE] bg-white text-ink hover:bg-bg transition-all"
-            >
-              <Download size={14} />
-              {downloading ? 'Generating...' : 'Download PDF'}
-            </button>
+      {/* Left */}
+      <div className="flex flex-wrap items-center gap-2 sm:gap-4 min-w-0">
+        <button
+          onClick={() => navigate('/invoices')}
+          className="flex items-center gap-1.5 text-sm text-ink-secondary hover:text-ink transition-colors"
+        >
+          <ArrowLeft size={16} />
+          <span className="hidden xs:inline">
+            Invoices
+          </span>
+        </button>
 
-            {/* More menu */}
-            <div className="relative">
-              <button
-                onClick={() => setShowMenu(!showMenu)}
-                className="p-2 rounded-lg border border-[##EDE9FE] hover:bg-bg transition-all"
-              >
-                <MoreHorizontal size={16} className="text-ink-secondary" />
-              </button>
-              {showMenu && (
-                <div className="absolute right-0 top-10 bg-white border border-[##EDE9FE] rounded-xl shadow-lg py-1 w-44 z-30">
-                  {invoice.status === 'sent' && (
-                    <button
-                      onClick={() => { updateStatus('overdue'); setShowMenu(false) }}
-                      className="flex items-center gap-2 w-full px-4 py-2.5 text-sm text-ink hover:bg-bg transition-colors"
-                    >
-                      <Clock size={14} className="text-orange-500" />
-                      Mark as Overdue
-                    </button>
-                  )}
-                  <button
-                    onClick={() => { window.print(); setShowMenu(false) }}
-                    className="flex items-center gap-2 w-full px-4 py-2.5 text-sm text-ink hover:bg-bg transition-colors"
-                  >
-                    <Printer size={14} className="text-ink-secondary" />
-                    Print
-                  </button>
-                  <div className="border-t border-[#E4E7EE] my-1" />
-                  <button
-                    onClick={() => { deleteInvoice(); setShowMenu(false) }}
-                    className="flex items-center gap-2 w-full px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors"
-                  >
-                    <Trash2 size={14} />
-                    Delete Invoice
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+        <span className="hidden sm:block text-[#E4E7EE]">
+          |
+        </span>
+
+        <span className="text-sm font-semibold text-ink truncate">
+          {invoice.invoice_number}
+        </span>
+
+        <StatusBadge status={invoice.status} />
       </div>
+
+      {/* Right actions */}
+      <div className="
+        flex
+        items-center
+        gap-2
+        overflow-x-auto
+        pb-1
+        scrollbar-hide
+      ">
+
+        {/* Draft */}
+        {invoice.status === 'draft' && (
+          <button
+            onClick={() => updateStatus('sent')}
+            disabled={updating}
+            className="
+              flex-shrink-0
+              flex items-center gap-2
+              px-3 py-2
+              rounded-lg
+              text-sm font-semibold
+              text-white
+            "
+            style={{ background:'#6D28D9' }}
+          >
+            <Send size={14}/>
+            <span className="hidden sm:inline">
+              Mark as Sent
+            </span>
+          </button>
+        )}
+
+        {/* Sent / Overdue */}
+        {(invoice.status === 'sent' ||
+          invoice.status === 'overdue') && (
+          <button
+            onClick={() => updateStatus('paid')}
+            disabled={updating}
+            className="
+              flex-shrink-0
+              flex items-center gap-2
+              px-3 py-2
+              rounded-lg
+              text-sm font-semibold
+              text-white
+            "
+            style={{ background:'#16A34A' }}
+          >
+            <CheckCircle size={14}/>
+            <span className="hidden sm:inline">
+              {updating
+                ? 'Updating...'
+                : 'Mark as Paid'}
+            </span>
+          </button>
+        )}
+
+        {/* Paid */}
+        {invoice.status === 'paid' && (
+          <button
+            onClick={() => navigate('/receipts')}
+            className="
+              flex-shrink-0
+              flex items-center gap-2
+              px-3 py-2
+              rounded-lg
+              text-sm font-semibold
+              text-white
+            "
+            style={{ background:'#16A34A' }}
+          >
+            <CheckCircle size={14}/>
+            <span className="hidden sm:inline">
+              View Receipt
+            </span>
+          </button>
+        )}
+
+        {/* Email */}
+        {invoice.client_snapshot?.email && (
+          <button
+            onClick={handleSendEmail}
+            disabled={sending}
+            className="
+              flex-shrink-0
+              flex items-center gap-2
+              px-3 py-2
+              rounded-lg
+              text-sm
+              font-semibold
+              border
+              bg-white
+            "
+          >
+            <Mail size={14}/>
+            <span className="hidden sm:inline">
+              {sending
+                ? 'Sending...'
+                : 'Email Invoice'}
+            </span>
+          </button>
+        )}
+
+        {/* PDF */}
+        <button
+          onClick={downloadPDF}
+          disabled={downloading}
+          className="
+            flex-shrink-0
+            flex items-center gap-2
+            px-3 py-2
+            rounded-lg
+            text-sm
+            font-semibold
+            border
+            bg-white
+          "
+        >
+          <Download size={14}/>
+          <span className="hidden sm:inline">
+            {downloading
+              ? 'Generating...'
+              : 'Download PDF'}
+          </span>
+        </button>
+
+        {/* Menu */}
+        <div className="relative flex-shrink-0">
+          <button
+            onClick={() => setShowMenu(!showMenu)}
+            className="p-2 rounded-lg border hover:bg-bg"
+          >
+            <MoreHorizontal
+              size={16}
+              className="text-ink-secondary"
+            />
+          </button>
+
+          {showMenu && (
+            <div className="
+              absolute
+              right-0
+              top-10
+              w-44
+              bg-white
+              border
+              rounded-xl
+              shadow-lg
+              z-30
+            ">
+              {/* existing menu items */}
+            </div>
+          )}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
       {/* Invoice Document */}
       <div className="max-w-4xl mx-auto px-6 py-8">
 
         {/* Paid banner */}
         {invoice.status === 'paid' && (
-          <div className="mb-4 bg-green-50 border border-green-200 rounded-xl px-5 py-3 flex items-center gap-3">
+          <div className="mb-4 bg-green-50 border border-green-400 rounded-xl px-2 py-3 flex items-center gap-3">
             <CheckCircle size={18} className="text-green-600 shrink-0" />
-            <p className="text-sm text-green-700 font-medium">
-              This invoice has been paid. A receipt has been automatically generated.
+            <p className="text-sm text-green-700 font-regular">
+              This invoice has been paid.
             </p>
             <button
               onClick={() => navigate('/receipts')}

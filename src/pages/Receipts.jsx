@@ -123,7 +123,7 @@ export default function Receipts() {
         </div>
       </div>
 
-      <div className="bg-white border border-[##EDE9FE] rounded-xl overflow-hidden">
+      <div className="bg-white border border-[#EDE9FE] rounded-xl overflow-hidden">
         {loading ? (
           <div className="py-16 text-center text-sm text-ink-secondary">Loading receipts...</div>
         ) : receipts.length === 0 ? (
@@ -136,56 +136,190 @@ export default function Receipts() {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-12 px-6 py-2.5 border-b border-[#E4E7EE] bg-bg">
-              {['Receipt #', 'Invoice #', 'Customer', 'Date Paid', 'Amount', ''].map((h, i) => (
-                <p key={i} className={`text-[10px] font-bold text-ink-muted tracking-wider ${
-                  i === 0 ? 'col-span-2' :
-                  i === 1 ? 'col-span-2' :
-                  i === 2 ? 'col-span-3' :
-                  i === 3 ? 'col-span-2' :
-                  i === 4 ? 'col-span-2' :
-                  'col-span-1'
-                }`}>{h}</p>
-              ))}
+            <>
+  {/* scroll container */}
+  <div className="overflow-x-auto">
+
+    {/* keep original width on desktop, prevent collapse on mobile */}
+    <div className="min-w-[720px]">
+
+      {/* Header */}
+      <div className="grid grid-cols-12 px-4 sm:px-6 py-2.5 border-b border-[#E4E7EE] bg-bg">
+
+        {['Receipt', 'Invoice No.', 'Customer', 'Date Paid', 'Amount', ''].map((h, i) => (
+          <p
+            key={i}
+            className={`text-[9px] sm:text-[10px] font-bold text-ink-muted tracking-wider ${
+              i === 0 ? 'col-span-2' :
+              i === 1 ? 'col-span-2' :
+              i === 2 ? 'col-span-3' :
+              i === 3 ? 'col-span-2' :
+              i === 4 ? 'col-span-2' :
+              'col-span-1'
+            }`}
+          >
+            {h}
+          </p>
+        ))}
+
+      </div>
+
+      {receipts.map((rec) => {
+        const inv = rec.invoice_snapshot
+
+        const currencySymbol = {
+          NGN:'₦',
+          USD:'$',
+          GBP:'£',
+          EUR:'€',
+          CAD:'CA$'
+        }[inv?.currency] || '₦'
+
+        return (
+
+          <div
+            key={rec.id}
+            onClick={() =>
+              navigate(`/receipts/${rec.id}`)
+            }
+            className="
+            grid
+            grid-cols-12
+            px-4 sm:px-6
+            py-3.5
+            border-b border-[#E4E7EE]
+            last:border-0
+            hover:bg-bg
+            transition-colors
+            items-center
+            cursor-pointer
+            "
+          >
+
+            {/* receipt */}
+            <div className="col-span-2 flex items-center gap-2">
+
+              <div className="
+              w-6 h-6
+              rounded-full
+              bg-green-50
+              flex
+              items-center
+              justify-center
+              shrink-0
+              ">
+                <CheckCircle
+                  size={12}
+                  className="text-green-600"
+                />
+              </div>
+
+              <p
+                className="
+                text-[11px]
+                font-bold
+                text-ink
+                "
+                style={{
+                  fontFamily:
+                  'DM Mono, monospace'
+                }}
+              >
+                {rec.receipt_number}
+              </p>
+
             </div>
-            {receipts.map((rec) => {
-              const inv = rec.invoice_snapshot
-              const currencySymbol = { NGN: '₦', USD: '$', GBP: '£', EUR: '€', CAD: 'CA$' }[inv?.currency] || '₦'
-              return (
-                <div key={rec.id} onClick={() => navigate(`/receipts/${rec.id}`)} className="grid grid-cols-12 px-6 py-3.5 border-b border-[#E4E7EE] last:border-0 hover:bg-bg transition-colors items-center cursor-pointer"
->
-                  <div className="col-span-2 flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-full bg-green-50 flex items-center justify-center shrink-0">
-                      <CheckCircle size={12} className="text-green-600" />
-                    </div>
-                    <p className="text-xs font-bold text-ink" style={{ fontFamily: 'DM Mono, monospace' }}>
-                      {rec.receipt_number}
-                    </p>
-                  </div>
-                  <p className="col-span-2 text-xs text-ink-secondary" style={{ fontFamily: 'DM Mono, monospace' }}>
-                    {inv?.invoice_number || '—'}
-                  </p>
-                  <p className="col-span-3 text-xs text-ink truncate">
-                    {inv?.client_snapshot?.name || '—'}
-                  </p>
-                  <p className="col-span-2 text-xs text-ink-secondary">
-                    {new Date(rec.paid_at).toLocaleDateString('en-NG')}
-                  </p>
-                  <p className="col-span-2 text-xs font-bold text-ink" style={{ fontFamily: 'DM Mono, monospace' }}>
-                    {currencySymbol}{fmt(inv?.total || 0)}
-                  </p>
-                  <div className="col-span-1 flex justify-end">
-                    <button
-                      onClick={() => downloadReceiptPDF(rec)}
-                      disabled={downloading === rec.id}
-                      className="p-1.5 rounded-lg hover:bg-bg border border-transparent hover:border-[#E4E7EE] transition-all text-ink-secondary hover:text-ink"
-                    >
-                      <Download size={14} />
-                    </button>
-                  </div>
-                </div>
-              )
-            })}
+
+
+            <p
+              className="
+              col-span-2
+              text-[11px]
+              text-ink-secondary
+              "
+              style={{
+                fontFamily:
+                'DM Mono, monospace'
+              }}
+            >
+              {inv?.invoice_number || '—'}
+            </p>
+
+
+            <p className="
+            col-span-3
+            text-[11px]
+            text-ink
+            truncate
+            ">
+              {inv?.client_snapshot?.name || '—'}
+            </p>
+
+
+            <p className="
+            col-span-2
+            text-[11px]
+            text-ink-secondary
+            ">
+              {new Date(rec.paid_at)
+                .toLocaleDateString('en-NG')}
+            </p>
+
+
+            <p
+              className="
+              col-span-2
+              text-[11px]
+              font-bold
+              text-ink
+              "
+              style={{
+                fontFamily:
+                'DM Mono, monospace'
+              }}
+            >
+              {currencySymbol}
+              {fmt(inv?.total || 0)}
+            </p>
+
+
+            <div className="
+            col-span-1
+            flex
+            justify-end
+            ">
+
+              <button
+                onClick={(e)=>{
+                  e.stopPropagation()
+
+                  downloadReceiptPDF(rec)
+                }}
+                disabled={
+                  downloading===rec.id
+                }
+                className="
+                p-1.5
+                rounded-lg
+                hover:bg-bg
+                border border-transparent
+                hover:border-[#E4E7EE]
+                transition-all
+                text-ink-secondary
+                "
+              >
+                <Download size={14}/>
+              </button>
+
+            </div>
+
+          </div>
+
+        )
+      })}
+    </div>
+  </div>
+</>
           </>
         )}
       </div>
