@@ -197,11 +197,12 @@ export default function InvoiceNew() {
             </div>
 
             {/* Invoice meta */}
-            <div>
+            {/* <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                 <span style={{ fontSize: 11, fontWeight: 700, color: '#6B5B8A', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Invoice #</span>
                 <span style={{ fontSize: 14, fontWeight: 800, color: '#1E0A3C', fontFamily: 'IBM Plex Mono, monospace' }}>{invoiceNumber}</span>
               </div>
+
               <div className="inv-row" style={{ marginBottom: 12 }}>
                 <div>
                   <FieldLabel>Invoice Date</FieldLabel>
@@ -217,6 +218,7 @@ export default function InvoiceNew() {
                   </div>
                 </div>
               </div>
+
               <div className="inv-row">
                 <div>
                   <FieldLabel>Payment Terms</FieldLabel>
@@ -232,7 +234,202 @@ export default function InvoiceNew() {
                   <input type="date" value={form.dueDate} onChange={e => setForm({ ...form, dueDate: e.target.value })} className="inv-input" />
                 </div>
               </div>
-            </div>
+
+            </div> */}
+
+            <div
+  style={{
+    width: '100%',
+  }}
+>
+  <div
+    style={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 12,
+      flexWrap: 'wrap',
+      gap: 8,
+    }}
+  >
+    <span
+      style={{
+        fontSize: 11,
+        fontWeight: 700,
+        color: '#6B5B8A',
+        textTransform: 'uppercase',
+        letterSpacing: '0.08em',
+      }}
+    >
+      Invoice #
+    </span>
+
+    <span
+      style={{
+        fontSize: 14,
+        fontWeight: 800,
+        color: '#1E0A3C',
+        fontFamily: 'IBM Plex Mono, monospace',
+        wordBreak: 'break-word',
+      }}
+    >
+      {invoiceNumber}
+    </span>
+  </div>
+
+  {/* Invoice Date + Currency */}
+  <div
+    style={{
+      display: 'flex',
+      gap: 12,
+      marginBottom: 12,
+      flexWrap: 'wrap',
+    }}
+  >
+    <div
+      style={{
+        flex: '1 1 240px',
+        minWidth: 0,
+      }}
+    >
+      <FieldLabel>Invoice Date</FieldLabel>
+
+      <input
+        type="date"
+        value={form.invoiceDate}
+        onChange={e =>
+          setForm({ ...form, invoiceDate: e.target.value })
+        }
+        className="inv-input"
+        style={{
+          width: '100%',
+          boxSizing: 'border-box',
+        }}
+      />
+    </div>
+
+    <div
+      style={{
+        flex: '1 1 240px',
+        minWidth: 0,
+      }}
+    >
+      <FieldLabel>Currency</FieldLabel>
+
+      <div
+        style={{
+          position: 'relative',
+          width: '100%',
+        }}
+      >
+        <select
+          value={form.currency}
+          onChange={e =>
+            setForm({ ...form, currency: e.target.value })
+          }
+          className="inv-input"
+          style={{
+            appearance: 'none',
+            paddingRight: 28,
+            width: '100%',
+            boxSizing: 'border-box',
+          }}
+        >
+          {CURRENCIES.map(c => (
+            <option key={c}>{c}</option>
+          ))}
+        </select>
+
+        <div
+          style={{
+            position: 'absolute',
+            right: 10,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            pointerEvents: 'none',
+          }}
+        >
+          <ChevronDown size={13} />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* Payment Terms + Due Date */}
+  <div
+    style={{
+      display: 'flex',
+      gap: 12,
+      flexWrap: 'wrap',
+    }}
+  >
+    <div
+      style={{
+        flex: '1 1 240px',
+        minWidth: 0,
+      }}
+    >
+      <FieldLabel>Payment Terms</FieldLabel>
+
+      <div
+        style={{
+          position: 'relative',
+          width: '100%',
+        }}
+      >
+        <select
+          value={paymentTerms}
+          onChange={e => setPaymentTerms(e.target.value)}
+          className="inv-input"
+          style={{
+            appearance: 'none',
+            paddingRight: 28,
+            width: '100%',
+            boxSizing: 'border-box',
+          }}
+        >
+          {PAYMENT_TERMS.map(t => (
+            <option key={t}>{t}</option>
+          ))}
+        </select>
+
+        <div
+          style={{
+            position: 'absolute',
+            right: 10,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            pointerEvents: 'none',
+          }}
+        >
+          <ChevronDown size={13} />
+        </div>
+      </div>
+    </div>
+
+    <div
+      style={{
+        flex: '1 1 240px',
+        minWidth: 0,
+      }}
+    >
+      <FieldLabel>Due Date</FieldLabel>
+
+      <input
+        type="date"
+        value={form.dueDate}
+        onChange={e =>
+          setForm({ ...form, dueDate: e.target.value })
+        }
+        className="inv-input"
+        style={{
+          width: '100%',
+          boxSizing: 'border-box',
+        }}
+      />
+    </div>
+  </div>
+</div>
           </div>
 
           {/* Bill To */}
