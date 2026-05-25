@@ -284,12 +284,12 @@ export default function InvoiceNew() {
       gap: 12,
       marginBottom: 12,
       flexWrap: 'wrap',
+      width: '100%'
     }}
   >
     <div
       style={{
-        flex: '1 1 240px',
-        minWidth: 0,
+       width: '100%'
       }}
     >
       <FieldLabel>Invoice Date</FieldLabel>
@@ -310,8 +310,7 @@ export default function InvoiceNew() {
 
     <div
       style={{
-        flex: '1 1 240px',
-        minWidth: 0,
+        width: '100%'
       }}
     >
       <FieldLabel>Currency</FieldLabel>
@@ -365,8 +364,7 @@ export default function InvoiceNew() {
   >
     <div
       style={{
-        flex: '1 1 240px',
-        minWidth: 0,
+        width: '100%'
       }}
     >
       <FieldLabel>Payment Terms</FieldLabel>
