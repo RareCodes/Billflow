@@ -34,7 +34,6 @@ export default function InvoiceDetail() {
   const [invoice, setInvoice] = useState(null)
   const [profile, setProfile] = useState(null)
   const [loading, setLoading] = useState(true)
-  const template = profile?.invoice_template || 'classic'
   const [updating, setUpdating] = useState(false)
   const [downloading, setDownloading] = useState(false)
   const [sending, setSending] = useState(false)
@@ -309,31 +308,6 @@ export default function InvoiceDetail() {
           </div>
         )}
        
-
-
-                {/* Template Selector */}
-            <div className="bg-white border border-[#E4E7EE] rounded-xl px-5 py-4 mb-4 flex items-center gap-3 flex-wrap">
-            <p className="text-xs font-bold text-ink-secondary uppercase tracking-wider shrink-0">Template:</p>
-            {[
-                { id: 'classic', label: 'Classic' },
-                { id: 'bold', label: 'Bold' },
-                { id: 'minimal', label: 'Minimal' },
-                { id: 'creative', label: 'Creative' },
-            ].map(({ id, label }) => (
-                <button
-                key={id}
-                onClick={() => setTemplate(id)}
-                className="px-4 py-1.5 rounded-lg text-xs font-bold transition-all"
-                style={{
-                    background: template === id ? '#6D28D9' : '#F8F7FF',
-                    color: template === id ? 'white' : '#5C6070',
-                    border: `1px solid ${template === id ? '#6D28D9' : '#E4E7EE'}`,
-                }}
-                >
-                {label}
-                </button>
-            ))}
-            </div>
 
 
 
