@@ -79,7 +79,7 @@ export default function Landing() {
   ]
 
   return (
-    <div className="min-h-screen overflow-x-hidden p-8" style={{ background: '#FAFAFA', fontFamily: 'Nunito Sans, sans-serif' }}>
+    <div className="min-h-screen overflow-x-hidden p-8" style={{ background: '#F5F6FA', fontFamily: 'Nunito Sans, sans-serif' }}>
 
       <style>{`
         @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
@@ -178,7 +178,7 @@ export default function Landing() {
       </nav>
 
       {/* ── HERO ────────────────────────────────────────────── */}
-      <section className="relative " style={{ background: '#FAFAFA' }}>
+      <section className="relative " style={{ background: '#F5F6FA' }}>
         {/* Dot grid background */}
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: 'radial-gradient(circle, #CBD0DB 1px, transparent 1px)',
