@@ -6,10 +6,10 @@ import { supabase } from '../lib/supabase'
 
 function StatusBadge({ status }) {
   const styles = {
-    draft:   { bg: '#FFFFFF', color: '#6B7280' },
-    sent:    { bg: '#FFFFFF', color: '#2563EB' },
-    paid:    { bg: '#FFFFFF', color: '#16A34A' },
-    overdue: { bg: '#FFFFFF', color: '#DC2626' },
+    draft:   { bg: '', color: '#6B7280' },
+    sent:    { bg: '', color: '#2563EB' },
+    paid:    { bg: '', color: '#16A34A' },
+    overdue: { bg: '', color: '#DC2626' },
   }
   const s = styles[status] || styles.draft
   return (
