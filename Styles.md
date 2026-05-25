@@ -1,7 +1,6 @@
 # styles.md — Billit Design System
 
 **Product:** Billit — Receipt & Invoice Generator
-**Version:** 2.0
 **Author:** Rare Victor
 **Stage:** HNG14 — Stage 7
 **Date:** 23 May 2026
@@ -46,12 +45,6 @@ Billit sits at the intersection of **professional credibility and human warmth**
   --color-paid:          #16A34A;   /* Green — completed, success */
   --color-overdue:       #DC2626;   /* Red — needs urgent attention */
 
-  /* Status backgrounds */
-  --color-success-bg:    #F0FDF4;
-  --color-error-bg:      #FEF2F2;
-  --color-warning-bg:   #EDE9FE;
-  --color-info-bg:       #EFF6FF;
-
   /* Shadows */
   --shadow-xs: 0 1px 2px rgba(15, 17, 23, 0.05);
   --shadow-sm: 0 1px 4px rgba(15, 17, 23, 0.08);
@@ -61,10 +54,7 @@ Billit sits at the intersection of **professional credibility and human warmth**
 ```
 
 ### Color Usage Rules
-- **Primary blue** is reserved for primary CTAs and active navigation only. Never use it decoratively.
-- **Green (#16A34A)** is strictly for paid/success states and receipt UI. Never use for general success toasts.
-- **Red (#DC2626)** is strictly for overdue/error states. Never use for general warnings.
-- **Page background (#F5F6FA)** creates visual separation between the app chrome and white card content.
+- **Magenta** is reserved for primary CTAs and active navigation only. Never use it decoratively.
 
 ---
 
@@ -247,10 +237,10 @@ font-size: 12px
 font-weight: 600
 text-transform: capitalize
 
-Draft:   bg #F3F4F6  color #6B7280
-Sent:    bg #EFF6FF  color #2563EB
-Paid:    bg #F0FDF4  color #16A34A
-Overdue: bg #FEF2F2  color #DC2626
+Draft:     color #6B7280
+Sent:     color #2563EB
+Paid:     color #16A34A
+Overdue:   color #DC2626
 ```
 
 ### Sidebar Navigation

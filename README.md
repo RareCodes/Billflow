@@ -1,16 +1,53 @@
-# React + Vite
+Billit Invoicing Webapp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and responsive invoice management application built with React.js, powered by Supabase, and deployed on Vercel. This platform allows users to create, manage, preview, and download professional invoices with clean UI templates and PDF export functionality.
 
-Currently, two official plugins are available:
+Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Add your live link here: Invoice Management System
 
-## React Compiler
+A modern and responsive invoice management application built with React.js, powered by Supabase, and deployed on Vercel. This platform allows users to create, manage, preview, and download professional invoices with clean UI templates and PDF export functionality.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🚀 Live Demo
 
-## Expanding the ESLint configuration
+Add your live link here:   https://billflow-pied.vercel.app
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+✨ Features
+📄 Create and manage invoices
+🎨 Multiple modern invoice templates
+📱 Fully responsive mobile-first design
+🧾 PDF invoice generation & download
+👤 Client and business profile management
+💰 Currency & payment terms support
+☁️ Supabase authentication & database
+⚡ Fast deployment with Vercel
+🤖 AI-assisted development workflow using Claude
+🛠️ Tech Stack
+Frontend
+React.js
+Tailwind CSS
+Inline CSS
+JavaScript
+Backend
+Supabase
+Authentication
+Database
+Storage
+Deployment
+Vercel
+AI Assistance
+Claude AI
+📂 Project Structure
+src/
+│
+├── components/
+├── pages/
+├── templates/
+├── hooks/
+├── utils/
+├── services/
+├── assets/
+└── App.js
+⚙️ Installation
+
+
